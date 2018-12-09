@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context="ch.openclassrooms.enyo1.mynews.MainActivity"
+    tools:context="ch.openclassrooms.enyo1.mynews.controller.activities.MainActivity"
     >
 
     <!-- 1 | MainActivity RootView -->

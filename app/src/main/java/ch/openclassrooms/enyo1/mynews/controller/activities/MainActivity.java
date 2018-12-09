@@ -1,4 +1,4 @@
-package ch.openclassrooms.enyo1.mynews;
+package ch.openclassrooms.enyo1.mynews.controller.activities;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import ch.openclassrooms.enyo1.mynews.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
