@@ -1,7 +1,12 @@
 package ch.openclassrooms.enyo1.mynews.controller.activities;
 
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,12 +16,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.BusinessFragment;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.MostPopFragment;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.TopStoriesFragment;
+import ch.openclassrooms.enyo1.mynews.helper.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    FragmentPagerAdapter adapterViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +36,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Set up the toolbar.
         configureToolBar ();
+        configureViewPagerAndTabs();
         configureDrawerLayout();
         configureNavigationView();
+
+
+
 
     }
 
@@ -44,9 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void configureToolBar(){
          mToolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-      //  ActionBar ab = getSupportActionBar();
-       // ab.setHomeAsUpIndicator(R.drawable.baseline_menu_white_48);
-      //  ab.setDisplayHomeAsUpEnabled(true);
+
 
     }
 
@@ -62,6 +75,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void configureNavigationView(){
         mNavigationView =  findViewById(R.id.activity_main_nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void configureViewPagerAndTabs(){
+        ViewPager vpPager = findViewById(R.id.activity_main_view_pager);
+        adapterViewPager = new MyPagerAdapter (getSupportFragmentManager());
+        vpPager.setAdapter(adapterViewPager);
+        //Get TabLayout from layout
+        TabLayout tabs= findViewById(R.id.activity_main_tabs);
+        //Glue TabLayout and ViewPager together
+        tabs.setupWithViewPager(vpPager);
+        //Design purpose. Tabs have the same width
+        tabs.setTabMode(TabLayout.MODE_FIXED);
+
     }
 
 
@@ -97,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
 
 
 }

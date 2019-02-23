@@ -13,9 +13,9 @@
 
     <!-- 1 | MainActivity RootView -->
     <LinearLayout
+        android:id="@+id/activity_main_rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_main_rootView"
         android:orientation="vertical">
 
         <!-- Toolbar -->
@@ -25,15 +25,25 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            app:theme="@style/ToolbarStyle"
-            />
+            app:theme="@style/ToolbarStyle" />
 
-        <!-- FrameLayout for our fragments -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-        </FrameLayout>
+
+            <!-- 1 | Add TabLayout to handle tabs -->
+            <android.support.design.widget.TabLayout
+                android:id="@+id/activity_main_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabTextColor="#aafe"
+                app:tabSelectedTextColor="#fff"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/activity_main_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
 
     </LinearLayout>
 
