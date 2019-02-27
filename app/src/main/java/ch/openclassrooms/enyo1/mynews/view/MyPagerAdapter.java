@@ -1,10 +1,9 @@
-package ch.openclassrooms.enyo1.mynews.helper;
+package ch.openclassrooms.enyo1.mynews.view;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.BusinessFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.MostPopFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.TopStoriesFragment;
