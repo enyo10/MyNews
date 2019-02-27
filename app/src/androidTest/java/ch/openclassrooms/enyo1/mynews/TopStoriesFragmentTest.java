@@ -32,7 +32,13 @@ public class TopStoriesFragmentTest {
         // 4 - Get the top stories fetched
         TopStories topStoriesFetched = testObserver.values().get(0);
 
-        // 5 - Verify if we have 20 article.
-           assertThat(" Article size is 20.",topStoriesFetched.getNumResults() == 20);
+        // - Verify if status: "OK"
+        assertThat("The status of the Stream was read correctly", topStoriesFetched.getStatus().equals("OK"));
+        // - Verify if section: "sports"
+        assertThat("The section of the Stream was read correctly", topStoriesFetched.getSection().equals("sports"));
+        // - Verify if Results Exist
+        assertThat("Results exist in the Stream request", topStoriesFetched.getNumResults()!=0);
+        // - Verify if we have 20 article.
+        assertThat(" Article size is 20.",topStoriesFetched.getNumResults() == 20);
     }
 }
