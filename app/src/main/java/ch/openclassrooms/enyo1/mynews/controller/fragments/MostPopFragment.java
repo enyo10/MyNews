@@ -41,6 +41,7 @@ public class MostPopFragment extends BaseFragment {
     @Override
     protected void configureDesign(View v) {
 
+
     }
 
    /* @Override
