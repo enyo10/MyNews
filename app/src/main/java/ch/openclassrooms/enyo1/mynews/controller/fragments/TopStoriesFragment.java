@@ -28,7 +28,7 @@ import io.reactivex.observers.DisposableObserver;
 public class TopStoriesFragment extends BaseFragment {
 
     private Disposable disposable;
-    private List<Result> mResults;
+    private List<NYTimesArticle> mNYTimesArticles;
     private TopStoriesAdapter mTopStoriesAdapter;
 
 
@@ -70,9 +70,9 @@ public class TopStoriesFragment extends BaseFragment {
     // 3 - Configure RecyclerView, Adapter, LayoutManager & glue it together
     private void configureRecyclerView(){
         // 3.1 - Reset list
-        this.mResults = new ArrayList<>();
+        this.mNYTimesArticles = new ArrayList<>();
         // 3.2 - Create adapter passing the list of users
-        this.mTopStoriesAdapter = new TopStoriesAdapter(this.mResults, Glide.with(this));
+        this.mTopStoriesAdapter = new TopStoriesAdapter(this.mNYTimesArticles, Glide.with(this));
         // 3.3 - Attach the adapter to the recyclerview to populate items
         this.mRecyclerView.setAdapter(this.mTopStoriesAdapter);
         // 3.4 - Set layout manager to position the items
@@ -92,8 +92,9 @@ public class TopStoriesFragment extends BaseFragment {
             public void onNext(TopStories topStories) {
                 // 6 - Update RecyclerView after getting results from Github API
                 Log.i("TAG","Download");
+                ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
 
-               updateUI(topStories.getResults());
+               updateUI(articles);
 
                Log.i("TAG","Number of Results "+  topStories.getNumResults());
 
@@ -118,8 +119,8 @@ public class TopStoriesFragment extends BaseFragment {
     // UPDATE UI
     // -------------------
 
-    private void updateUI(List<Result> results){
-        mResults.addAll(results);
+    private void updateUI(ArrayList<NYTimesArticle> articles){
+        mNYTimesArticles.addAll(articles);
         mTopStoriesAdapter.notifyDataSetChanged();
     }
 
@@ -140,9 +141,11 @@ public class TopStoriesFragment extends BaseFragment {
              list.add(article);
         }
 
+        Log.i("TAG","Converting success");
 
 
-        return null;
+
+        return list;
     }
 
     @Override

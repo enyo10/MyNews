@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Multimedium;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
+import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
 public class TopStoriesViewHolder extends RecyclerView.ViewHolder{
 
@@ -29,13 +30,13 @@ public class TopStoriesViewHolder extends RecyclerView.ViewHolder{
         ButterKnife.bind(this,itemView);
     }
 
-    public void updateWithTopStoriesResult(Result result, RequestManager glide){
+    public void updateWithTopStoriesResult(NYTimesArticle article, RequestManager glide){
 
-        textView.setText(result.getTitle());
+        textView.setText(article.getTitle());
 
-        glide.load(result.getMultimedia().get(1).getUrl()).into(imageView);
+        glide.load(article.getImageURL()).into(imageView);
 
-        Log.i("TAG"," url value : "+result.getMultimedia().get(0).getUrl());
+        Log.i("TAG"," url value : "+article.getDate());
 
     }
 }

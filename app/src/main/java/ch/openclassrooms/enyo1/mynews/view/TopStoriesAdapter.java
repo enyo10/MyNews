@@ -14,18 +14,19 @@ import java.util.List;
 
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
+import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
 public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesViewHolder> {
     // For data
 
-    private List<Result> mResults;
+    private List<NYTimesArticle> mNYTimesArticles;
     // The glide to hold the image.
     private RequestManager mRequestManager;
 
     // Constructor
 
-    public TopStoriesAdapter (List<Result>resultList,RequestManager glide){
-        this.mResults=resultList;
+    public TopStoriesAdapter (List<NYTimesArticle>resultList,RequestManager glide){
+        this.mNYTimesArticles=resultList;
         this.mRequestManager=glide;
 
     }
@@ -44,12 +45,12 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TopStoriesViewHolder topStoriesViewHolder, int i) {
-        topStoriesViewHolder.updateWithTopStoriesResult(this.mResults.get(i),this.mRequestManager);
+        topStoriesViewHolder.updateWithTopStoriesResult(this.mNYTimesArticles.get(i),this.mRequestManager);
 
     }
 
     @Override
     public int getItemCount() {
-        return this.mResults.size();
+        return this.mNYTimesArticles.size();
     }
 }
