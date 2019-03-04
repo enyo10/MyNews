@@ -3,7 +3,9 @@ package ch.openclassrooms.enyo1.mynews.models.topStories;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TopStoriesMultimedium {
+public class Multimedium {
+
+
     @SerializedName("url")
     @Expose
     private String url;
@@ -92,6 +94,5 @@ public class TopStoriesMultimedium {
     public void setCopyright(String copyright) {
         this.copyright = copyright;
     }
-
 
 }

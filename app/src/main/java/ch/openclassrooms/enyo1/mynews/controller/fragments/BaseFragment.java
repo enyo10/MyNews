@@ -8,6 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import icepick.Icepick;
 import icepick.State;
 
@@ -58,6 +62,15 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void configureDesign(View v);
 
+    /**
+     * This method to convert a data to an article list. This data is given as a object.
+     * @param data,
+     *            the data to convert to the list.
+     * @return list,
+     *            a list of NYTimesArticles.
+     *
+     */
+    protected abstract ArrayList<NYTimesArticle> convertToArticlesList(Object data);
 
 
 

@@ -58,7 +58,7 @@ public class Result {
     private List<Object> geoFacet = null;
     @SerializedName("multimedia")
     @Expose
-    private List<TopStoriesMultimedium> multimedia = null;
+    private List<Multimedium> multimedia = null;
     @SerializedName("short_url")
     @Expose
     private String shortUrl;
@@ -191,11 +191,11 @@ public class Result {
         this.geoFacet = geoFacet;
     }
 
-    public List<TopStoriesMultimedium> getMultimedia() {
+    public List<Multimedium> getMultimedia() {
         return multimedia;
     }
 
-    public void setMultimedia(List<TopStoriesMultimedium> multimedia) {
+    public void setMultimedia(List<Multimedium> multimedia) {
         this.multimedia = multimedia;
     }
 
@@ -206,5 +206,6 @@ public class Result {
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
 
 }

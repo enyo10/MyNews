@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ import butterknife.BindView;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
+import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import ch.openclassrooms.enyo1.mynews.view.TopStoriesAdapter;
 import io.reactivex.disposables.Disposable;
@@ -69,7 +72,7 @@ public class TopStoriesFragment extends BaseFragment {
         // 3.1 - Reset list
         this.mResults = new ArrayList<>();
         // 3.2 - Create adapter passing the list of users
-        this.mTopStoriesAdapter = new TopStoriesAdapter(this.mResults);
+        this.mTopStoriesAdapter = new TopStoriesAdapter(this.mResults, Glide.with(this));
         // 3.3 - Attach the adapter to the recyclerview to populate items
         this.mRecyclerView.setAdapter(this.mTopStoriesAdapter);
         // 3.4 - Set layout manager to position the items
@@ -83,13 +86,15 @@ public class TopStoriesFragment extends BaseFragment {
     private void executeHttpRequestWithRetrofit() {
         // this.updateUIWhenStartingHTTPRequest();
 
-        this.disposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","sports")
+        this.disposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","home")
                 .subscribeWith(new DisposableObserver<TopStories>() {
             @Override
             public void onNext(TopStories topStories) {
                 // 6 - Update RecyclerView after getting results from Github API
                 Log.i("TAG","Download");
+
                updateUI(topStories.getResults());
+
                Log.i("TAG","Number of Results "+  topStories.getNumResults());
 
             }
@@ -118,6 +123,27 @@ public class TopStoriesFragment extends BaseFragment {
         mTopStoriesAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
+        TopStories topStories = (TopStories) data;
+        ArrayList<NYTimesArticle>list =new ArrayList<>();
+
+        for(Result result:topStories.getResults()){
+            NYTimesArticle article=new NYTimesArticle();
+            article.setDate(result.getCreatedDate());
+            article.setSection(result.getSection());
+            article.setTitle(result.getTitle());
+            article.setNewsURL(result.getUrl());
+             if(result.getMultimedia().size()!=0)
+                 article.setImageURL(result.getMultimedia().get(0).getUrl());
+
+             list.add(article);
+        }
+
+
+
+        return null;
+    }
 
     @Override
     public void onDestroy() {

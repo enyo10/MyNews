@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.RequestManager;
+
 import java.util.List;
 
 import ch.openclassrooms.enyo1.mynews.R;
@@ -17,11 +19,14 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesViewHolder
     // For data
 
     private List<Result> mResults;
+    // The glide to hold the image.
+    private RequestManager mRequestManager;
 
     // Constructor
 
-    public TopStoriesAdapter (List<Result>resultList){
+    public TopStoriesAdapter (List<Result>resultList,RequestManager glide){
         this.mResults=resultList;
+        this.mRequestManager=glide;
 
     }
 
@@ -39,7 +44,7 @@ public class TopStoriesAdapter extends RecyclerView.Adapter<TopStoriesViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TopStoriesViewHolder topStoriesViewHolder, int i) {
-        topStoriesViewHolder.updateWithTopStoriesResult(this.mResults.get(i));
+        topStoriesViewHolder.updateWithTopStoriesResult(this.mResults.get(i),this.mRequestManager);
 
     }
 
