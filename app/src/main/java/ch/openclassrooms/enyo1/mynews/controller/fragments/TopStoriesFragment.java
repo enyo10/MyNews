@@ -133,7 +133,7 @@ public class TopStoriesFragment extends BaseFragment {
             article.setDate(result.getCreatedDate());
             article.setSection(result.getSection());
             article.setTitle(result.getTitle());
-            article.setNewsURL(result.getUrl());
+            article.setURL(result.getUrl());
              if(result.getMultimedia().size()!=0)
                  article.setImageURL(result.getMultimedia().get(0).getUrl());
 
