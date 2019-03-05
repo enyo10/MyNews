@@ -30,6 +30,8 @@ public class MostPopFragment extends BaseFragment {
         return popFragment;
     }
 
+
+
 /* public BaseFragment newInstance(String title) {
         MostPopFragment popFragment=new MostPopFragment ();
         popFragment.title="MOST POPULAR";
@@ -39,11 +41,15 @@ public class MostPopFragment extends BaseFragment {
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.fragment_most_pop;
+       return R.layout.fragment_base_layout;
+       // return 0;
     }
 
     @Override
     protected void configureDesign(View v) {
+        mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
+        mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
+
 
 
     }
@@ -61,6 +67,16 @@ public class MostPopFragment extends BaseFragment {
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
+        return null;
+    }
+
+    @Override
+    protected void executeHttpRequestWithRetrofit() {
+
+    }
+
+    @Override
+    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         return null;
     }
 }

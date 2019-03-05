@@ -18,14 +18,14 @@ import ch.openclassrooms.enyo1.mynews.models.articleSearch.Multimedium;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
-public class TopStoriesViewHolder extends RecyclerView.ViewHolder{
+public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
 
-    @BindView(R.id.fragment_top_stories_item_title)
+    @BindView(R.id.fragment_item_title)
     TextView textView;
-    @BindView(R.id.fragment_top_stories_item_image)
+    @BindView(R.id.fragment_item_image)
     ImageView imageView;
 
-    public TopStoriesViewHolder(@NonNull View itemView) {
+    public NYTimesArticleViewHolder(@NonNull View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }

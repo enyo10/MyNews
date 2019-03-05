@@ -32,15 +32,19 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected int getFragmentLayout() {
-        return R.layout.fragment_business;
+        return R.layout.fragment_base_layout;
+        //return 0;
     }
+
 
     @Override
     protected void configureDesign(View v) {
-        TextView tvLabel =  v.findViewById(R.id.businessTv);
+        mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
+        mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
+        /*TextView tvLabel =  v.findViewById(R.id.businessTv);
         String value="BUSINESS";
         tvLabel.setText(value);
-
+*/
     }
 
     /* public BusinessFragment() {
@@ -75,8 +79,20 @@ public class BusinessFragment extends BaseFragment {
     }
 */
 
+
+
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
+        return null;
+    }
+
+    @Override
+    protected void executeHttpRequestWithRetrofit() {
+
+    }
+
+    @Override
+    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
         return null;
     }
 }
