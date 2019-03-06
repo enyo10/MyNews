@@ -4,6 +4,7 @@ package ch.openclassrooms.enyo1.mynews.utils;
 import java.util.Map;
 
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
+import ch.openclassrooms.enyo1.mynews.models.mostPopular.MostPopularArticle;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
 import retrofit2.Retrofit;
 import io.reactivex.Observable;
@@ -20,6 +21,12 @@ public interface NYTimesService {
     @GET("svc/topstories/v2/{section}.json")
     Observable<TopStories> getTopStories(@Path("section") String section ,
                                          @Query("api-key") String apiKey);
+
+    // Most Popular API
+
+    @GET("svc/mostpopular/v2/viewed/1.json")
+    Observable<MostPopularArticle> getMostPopular(@Query("api-key") String apiKey);
+
 
 
    /* @GET("svc/search/v2/articlesearch.json")

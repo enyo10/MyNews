@@ -133,22 +133,32 @@ public class TopStoriesFragment extends BaseFragment {
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
+
         TopStories topStories = (TopStories) data;
         ArrayList<NYTimesArticle>list =new ArrayList<>();
 
-        for(Result result:topStories.getResults()){
-            NYTimesArticle article=new NYTimesArticle();
-            article.setDate(result.getCreatedDate());
-            article.setSection(result.getSection());
-            article.setTitle(result.getTitle());
-            article.setURL(result.getUrl());
-             if(result.getMultimedia().size()!=0)
-                 article.setImageURL(result.getMultimedia().get(0).getUrl());
+        if(topStories.getResults().size()!=0) {
 
-             list.add(article);
+            for (Result result : topStories.getResults()) {
+                NYTimesArticle article = new NYTimesArticle();
+                article.setDate(result.getCreatedDate());
+
+                if(result.getSubsection()!=null)
+                    article.setSection(result.getSection()+" > "+result.getSubsection());
+                else
+                    article.setSection(result.getSection());
+
+                article.setTitle(result.getTitle());
+                article.setURL(result.getUrl());
+
+                if (result.getMultimedia().size() != 0)
+                    article.setImageURL(result.getMultimedia().get(0).getUrl());
+
+                list.add(article);
+            }
+
+            Log.i("TAG", "Converting success");
         }
-
-        Log.i("TAG","Converting success");
 
         return list;
     }

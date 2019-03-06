@@ -21,9 +21,11 @@ import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
 
     @BindView(R.id.fragment_item_title)
-    TextView textView;
+    TextView mTitle_textView;
     @BindView(R.id.fragment_item_image)
-    ImageView imageView;
+    ImageView mImageView;
+    @BindView(R.id.fragment_item_date)TextView mDate_textView;
+    @BindView(R.id.fragment_item_section)TextView mSection_textView;
 
     public NYTimesArticleViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -32,10 +34,10 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
 
     public void updateWithTopStoriesResult(NYTimesArticle article, RequestManager glide){
 
-        textView.setText(article.getTitle());
-
-        glide.load(article.getImageURL()).into(imageView);
-
+        mTitle_textView.setText(article.getTitle());
+        mDate_textView.setText(article.getDate());
+        mSection_textView.setText(article.getSection());
+        glide.load(article.getImageURL()).into(mImageView);
         Log.i("TAG"," url value : "+article.getDate());
 
     }

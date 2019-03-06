@@ -1,5 +1,6 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +27,8 @@ import icepick.State;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
+
+//    protected  String api_key= getResources().getString(R.string.api_key);
     @State
     String title;
 
