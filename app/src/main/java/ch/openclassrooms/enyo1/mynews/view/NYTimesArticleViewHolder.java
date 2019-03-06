@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Multimedium;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
+import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
 public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
@@ -35,7 +36,7 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
     public void updateWithTopStoriesResult(NYTimesArticle article, RequestManager glide){
 
         mTitle_textView.setText(article.getTitle());
-        mDate_textView.setText(article.getDate());
+        mDate_textView.setText(DateFormatter.formatDate(article.getDate()));
         mSection_textView.setText(article.getSection());
         glide.load(article.getImageURL()).into(mImageView);
         Log.i("TAG"," url value : "+article.getDate());
