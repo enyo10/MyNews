@@ -168,17 +168,17 @@ public class TopStoriesFragment extends BaseFragment {
     @Override
     protected void executeHttpRequestWithRetrofit() {
 
-        this.mDisposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","home")
+        this.mDisposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","business")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories topStories) {
                         // 6 - Update RecyclerView after getting results from Github API
-                        Log.i("TAG","Download");
+                        Log.i("TAG"," Top stories Download...");
                         ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
 
                         updateUI(articles);
 
-                        Log.i("TAG","Number of Results "+  topStories.getNumResults());
+                        Log.i("TAG","Number of top stories "+  topStories.getNumResults());
 
                     }
 

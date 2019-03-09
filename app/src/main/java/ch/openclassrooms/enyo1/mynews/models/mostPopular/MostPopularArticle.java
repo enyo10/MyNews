@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class MostPopularArticle {
+
     @SerializedName("status")
     @Expose
     private String status;
@@ -14,7 +15,7 @@ public class MostPopularArticle {
     private String copyright;
     @SerializedName("num_results")
     @Expose
-    private Integer numResults;
+    private long numResults;
     @SerializedName("results")
     @Expose
     private List<Result> results = null;
@@ -35,11 +36,11 @@ public class MostPopularArticle {
         this.copyright = copyright;
     }
 
-    public Integer getNumResults() {
+    public long getNumResults() {
         return numResults;
     }
 
-    public void setNumResults(Integer numResults) {
+    public void setNumResults(long numResults) {
         this.numResults = numResults;
     }
 
@@ -50,6 +51,5 @@ public class MostPopularArticle {
     public void setResults(List<Result> results) {
         this.results = results;
     }
-
 
 }

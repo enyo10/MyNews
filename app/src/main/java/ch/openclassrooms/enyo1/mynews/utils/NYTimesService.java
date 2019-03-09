@@ -1,8 +1,6 @@
 package ch.openclassrooms.enyo1.mynews.utils;
 
 
-import java.util.Map;
-
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.models.mostPopular.MostPopularArticle;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
@@ -13,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.QueryMap;
 
 public interface NYTimesService {
 
@@ -22,26 +19,18 @@ public interface NYTimesService {
     Observable<TopStories> getTopStories(@Path("section") String section ,
                                          @Query("api-key") String apiKey);
 
-    // Most Popular API
+   // @GET("svc/mostpopular/v2/emailed/7.json")
+   @GET("svc/mostpopular/v2/mostshared/all-sections/30.json")
 
-    @GET("svc/mostpopular/v2/viewed/1.json")
-    Observable<MostPopularArticle> getMostPopular(@Query("api-key") String apiKey);
+    Observable<MostPopularArticle>getMostPopArticle(@Query("api-key")String apiKey);
 
 
-
-   /* @GET("svc/search/v2/articlesearch.json")
-    Observable<Response> loadArticles(@Query("api-key") String key,
-                                      @Query("q") String query,
-                                      @Query("page") String pNum,
-                                      @Query("sort") String sOrder,
-                                      @Query("begin_date") String beginDate,
-                                      @Query("fq") String newsDesk);
-*/
 
     // Article Search API
     @GET("svc/search/v2/articlesearch.json")
-    Observable<ArticleSearch> getArticleSearch(@Query("api-key") String apiKey,
-                                               @QueryMap Map<String,String> filters);
+    Observable<ArticleSearch> getArticleSearch(@Query("api-key") String apiKey);
+
+
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://api.nytimes.com/")

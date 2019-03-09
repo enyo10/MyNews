@@ -20,7 +20,7 @@ public class Medium {
     private String copyright;
     @SerializedName("approved_for_syndication")
     @Expose
-    private Integer approvedForSyndication;
+    private long approvedForSyndication;
     @SerializedName("media-metadata")
     @Expose
     private List<MediaMetadatum> mediaMetadata = null;
@@ -57,11 +57,11 @@ public class Medium {
         this.copyright = copyright;
     }
 
-    public Integer getApprovedForSyndication() {
+    public long getApprovedForSyndication() {
         return approvedForSyndication;
     }
 
-    public void setApprovedForSyndication(Integer approvedForSyndication) {
+    public void setApprovedForSyndication(long approvedForSyndication) {
         this.approvedForSyndication = approvedForSyndication;
     }
 

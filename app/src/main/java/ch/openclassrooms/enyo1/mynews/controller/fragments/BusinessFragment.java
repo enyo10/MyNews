@@ -3,6 +3,7 @@ package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
+import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
+import io.reactivex.observers.DisposableObserver;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,6 +92,26 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
+        this.mDisposable= NYTimesStream.streamFetchArticleSearch("UqsVUuAGooyAyaJPZrwM45HG454PT72r")
+                .subscribeWith(new DisposableObserver<ArticleSearch>() {
+                    @Override
+                    public void onNext(ArticleSearch articleSearch) {
+                        Log.i("TAG"," Article search Downloading ...");
+                        Log.i("TAG"," Doc size -->"+  articleSearch.getResponse().getDocs().size());
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("TAG","OOOps, aie aie "+Log.getStackTraceString(e));
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
 
     }
 

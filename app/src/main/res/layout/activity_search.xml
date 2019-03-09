@@ -7,63 +7,173 @@
     android:orientation="vertical"
     tools:context=".controller.activities.SearchActivity">
 
-    <CheckBox
-        android:id="@+id/arts_checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
-
-    <CheckBox
-        android:id="@+id/business_checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
 
 
-    <CheckBox
-        android:id="@+id/sports_checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
-
-    <CheckBox
-        android:id="@+id/arts_checkBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="CheckBox" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
 
-        <LinearLayout
+
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:hint="Search query term" />
 
-        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Spinner label -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="12sp"
+            android:text="Begin Date"/>
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="End Date"/>
+
+    </LinearLayout>
+
+    <!-- Date zone -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/activity_search_begin_date"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:maxLines="1"
+            android:hint="pick begin date"/>
+
+        <EditText
+            android:id="@+id/activity_search_end_date"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginEnd="15dp"
+            android:maxLines="1"
+            android:hint="pick end date"/>
+
     </LinearLayout>
 
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                <CheckBox
+                    android:id="@+id/checkBox_arts"
+                    android:layout_width="185dp"
+                    android:layout_height="wrap_content"
+                    android:text=" Arts" />
 
-        <TableRow
+
+                <CheckBox
+                    android:id="@+id/checkBox_politics"
+                    android:layout_width="225dp"
+                    android:layout_height="wrap_content"
+                    android:text=" Politics" />
+
+
+            </TableRow>
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/checkBox_business"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Business" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_sports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Sports" />
+
+            </TableRow>
+
+
+            <TableRow>
+
+                <CheckBox
+                    android:id="@+id/checkBox_entrepreneurs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Entrepreneurs" />
+
+                <CheckBox
+                    android:id="@+id/checkBox_travel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Travel" />
+            </TableRow>
+
+        </TableLayout>
+
+
+    </LinearLayout>
+
+    <!-- Button zone -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_search_button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </TableLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="SEARCH"
+            android:textColor="@android:color/background_light"></Button>
+    </LinearLayout>
+
+
+
+
+
+
 </LinearLayout>

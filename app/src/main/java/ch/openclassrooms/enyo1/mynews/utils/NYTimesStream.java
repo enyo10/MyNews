@@ -34,24 +34,25 @@ public class NYTimesStream {
      * @param apiKey, the api key to get the resources.
      * @return Articles, the popular articles.
      */
-    public static Observable<MostPopularArticle>streamFetchMostPopArticles(String apiKey,int period){
-        NYTimesService mostPopArticleService=NYTimesService.retrofit.create(NYTimesService.class);
-        return mostPopArticleService.getMostPopular(apiKey)
+    public static Observable<MostPopularArticle>streamFetchMostPopArticles(String apiKey){
+        NYTimesService mostPopArticleService =NYTimesService.retrofit.create(NYTimesService.class);
+        return mostPopArticleService.getMostPopArticle(apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(15,TimeUnit.SECONDS);
 
+
     }
+
 
     /**
      *
      * @param apiKey, The api key to retrieve the resource.
-     * @param filters, The filters is to select the sections of the search.
      * @return a Stream, a stream of the searched articles.
      */
-    public static Observable<ArticleSearch> streamFetchArticleSearch(String apiKey, Map<String,String> filters){
+    public static Observable<ArticleSearch> streamFetchArticleSearch(String apiKey){
         NYTimesService articleSearchService = NYTimesService.retrofit.create(NYTimesService.class);
-        return articleSearchService.getArticleSearch(apiKey,filters)
+        return articleSearchService.getArticleSearch(apiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(15, TimeUnit.SECONDS);

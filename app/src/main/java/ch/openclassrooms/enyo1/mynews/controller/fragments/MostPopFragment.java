@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.mostPopular.MostPopularArticle;
 import ch.openclassrooms.enyo1.mynews.models.mostPopular.Result;
+import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import io.reactivex.observers.DisposableObserver;
@@ -42,7 +43,7 @@ public class MostPopFragment extends BaseFragment {
     @Override
     protected int getFragmentLayout() {
        return R.layout.fragment_base_layout;
-       // return 0;
+
     }
 
     @Override
@@ -75,16 +76,27 @@ public class MostPopFragment extends BaseFragment {
                 NYTimesArticle article = new NYTimesArticle();
                 article.setDate(result.getPublishedDate());
 
+                // -- Affected newsURL
+                article.setURL(result.getUrl());
 
-                if(result.getSubsection()!=null)
-                    article.setSection(result.getSection()+">"+result.getSection());
+                // -- Affected imageURL
+                // Test if an image is present
+                if (result.getMedia().size() != 0) {
+                    article.setImageURL(result.getMedia().get(0).getMediaMetadata().get(0).getUrl());
+                }
+
+                // -- Affected section label ( section > subSection )
+                article.setSection(result.getSection());
+
+               /* if(result.getSubsection()!=null)
+                    article.setSection(result.getSection()+" > "+result.getSubsection());
                 else
-                    article.setSection(result.getSection());
+                    article.setSection(result.getSection());*/
 
                 article.setTitle(result.getTitle());
-                article.setURL(result.getUrl());
-                if (result.getMedia().size() != 0 && result.getMedia().get(0).getMediaMetadata().size()!=0.)
-                    article.setImageURL(result.getMedia().get(0).getMediaMetadata().get(0).getUrl());
+
+                /*if (result.getMedia().size() != 0 && result.getMedia().get(0).getMediaMetadata().size()!=0)
+                    article.setImageURL(result.getMedia().get(0).getMediaMetadata().get(0).getUrl());*/
 
                 list.add(article);
             }
@@ -98,26 +110,28 @@ public class MostPopFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        int period =1;
-        this.mDisposable= NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r",period)
-                .subscribeWith(new DisposableObserver<MostPopularArticle>(){
-
+        this.mDisposable =NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r")
+                .subscribeWith(new DisposableObserver<MostPopularArticle>() {
                     @Override
                     public void onNext(MostPopularArticle mostPopularArticle) {
+                        Log.i("TAG","Downloading Most pop article");
 
-                        Log.i("TAG", "Downloading....");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("TAG","Oops, error :"+Log.getStackTraceString(e));
+                        Log.i("TAG"," Most pop article : Error - > "+Log.getStackTraceString(e));
+
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("TAG","Downloaded");
+                        Log.i("TAG","Most Pop  article downloaded");
+
                     }
                 });
+
+
 
     }
 

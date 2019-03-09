@@ -12,10 +12,10 @@ public class MediaMetadatum {
     private String format;
     @SerializedName("height")
     @Expose
-    private Integer height;
+    private long height;
     @SerializedName("width")
     @Expose
-    private Integer width;
+    private long width;
 
     public String getUrl() {
         return url;
@@ -33,21 +33,19 @@ public class MediaMetadatum {
         this.format = format;
     }
 
-    public Integer getHeight() {
+    public long getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(long height) {
         this.height = height;
     }
 
-    public Integer getWidth() {
+    public long getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(long width) {
         this.width = width;
     }
-
-
 }

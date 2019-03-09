@@ -15,7 +15,7 @@ public class MostPopFragmentTest {
     @Test
     public void fetchMostPopArticles()throws Exception{
         //1 - Get the stream
-        Observable<MostPopularArticle> observableMostPopArticle = NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r",1);
+        Observable<MostPopularArticle> observableMostPopArticle = NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r");
         //2 - Create a new TestObserver
         TestObserver<MostPopularArticle> testObserver = new TestObserver<>();
         //3 - Launch observable
@@ -26,7 +26,7 @@ public class MostPopFragmentTest {
 
 
        // 4 - Get the most article fetched
-        MostPopularArticle articleFetched = testObserver.values().get(0);
+       MostPopularArticle articleFetched = testObserver.values().get(0);
 
         // - Verify if status: "OK"
         assertThat("The status of the Stream was read correctly", articleFetched.getStatus().equals("OK"));
@@ -34,7 +34,7 @@ public class MostPopFragmentTest {
         // - Verify if Results Exist
         assertThat("Results exist in the Stream request", articleFetched.getNumResults()!=0);
         // - Verify if we have 20 article.
-        assertThat(" Article size is 20.",articleFetched.getNumResults() == 20);
+        assertThat(" Article size is 20.",articleFetched.getNumResults() != 20);
     }
 
 
