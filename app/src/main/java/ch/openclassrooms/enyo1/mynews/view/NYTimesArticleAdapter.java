@@ -43,13 +43,22 @@ public class NYTimesArticleAdapter extends RecyclerView.Adapter<NYTimesArticleVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NYTimesArticleViewHolder topStoriesViewHolder, int i) {
-        topStoriesViewHolder.updateWithTopStoriesResult(this.mNYTimesArticles.get(i),this.mRequestManager);
+    public void onBindViewHolder(@NonNull NYTimesArticleViewHolder articleViewHolder, int i) {
+        articleViewHolder.updateWithArticles(this.mNYTimesArticles.get(i),this.mRequestManager);
 
     }
 
     @Override
     public int getItemCount() {
         return this.mNYTimesArticles.size();
+    }
+
+    /**
+     * This method to return the item at position "position" on the recycler view.
+     * @param position, the position
+     * @return Object, the item to return.
+     */
+    public NYTimesArticle getItem(int position){
+        return this.mNYTimesArticles.get(position);
     }
 }

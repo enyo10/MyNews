@@ -177,22 +177,16 @@ public class TopStoriesFragment extends BaseFragment {
                         // 6 - Update RecyclerView after getting results from Github API
                         Log.i("TAG"," Top stories Download...");
                         ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
-
                         updateUI(articles);
-
                         Log.i("TAG","Number of top stories "+  topStories.getNumResults());
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
                         Log.e("TAG","OOOps, aie aie "+Log.getStackTraceString(e));
                     }
-
                     @Override
                     public void onComplete() {
-
                         Log.i("TAG","Downloaded");
                     }
                 });
@@ -210,6 +204,10 @@ public class TopStoriesFragment extends BaseFragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Log.e("TAG", "Position : "+position);
+
+                        NYTimesArticle article = mAdapter.getItem(position);
+
+                        Log.i("TAG"," article selected : "+article.getURL());
                     }
                 });
     }

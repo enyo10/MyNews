@@ -33,13 +33,14 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
         ButterKnife.bind(this,itemView);
     }
 
-    public void updateWithTopStoriesResult(NYTimesArticle article, RequestManager glide){
+
+    public void updateWithArticles(NYTimesArticle article, RequestManager glide){
 
         mTitle_textView.setText(article.getTitle());
         mDate_textView.setText(DateFormatter.formatDate(article.getDate()));
         mSection_textView.setText(article.getSection());
         glide.load(article.getImageURL()).into(mImageView);
-        Log.i("TAG"," url value : "+article.getDate());
+        Log.i("TAG"," url value : "+article.getURL());
 
     }
 }
