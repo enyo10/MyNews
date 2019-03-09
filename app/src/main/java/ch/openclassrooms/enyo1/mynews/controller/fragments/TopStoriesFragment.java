@@ -16,6 +16,7 @@ import java.util.List;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
+import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
@@ -58,6 +59,7 @@ public class TopStoriesFragment extends BaseFragment {
     //    configureSwipeRefreshLayout();
 //        configureRecyclerView();
         executeHttpRequestWithRetrofit();
+        configureOnClickRecyclerView();
 
 
     }
@@ -196,6 +198,22 @@ public class TopStoriesFragment extends BaseFragment {
                 });
 
     }
+
+    // -----------------
+    // ACTION
+    // -----------------
+
+    // 1 - Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+                    }
+                });
+    }
+
 
     @Override
     public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
