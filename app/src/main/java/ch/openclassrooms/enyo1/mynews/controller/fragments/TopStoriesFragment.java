@@ -58,8 +58,8 @@ public class TopStoriesFragment extends BaseFragment {
 
     //    configureSwipeRefreshLayout();
 //        configureRecyclerView();
-        executeHttpRequestWithRetrofit();
-        configureOnClickRecyclerView();
+       // executeHttpRequestWithRetrofit();
+        //configureOnClickRecyclerView();
 
 
     }
@@ -198,7 +198,7 @@ public class TopStoriesFragment extends BaseFragment {
     // -----------------
 
     // 1 - Configure item click on RecyclerView
-    private void configureOnClickRecyclerView(){
+   /* private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
@@ -210,7 +210,7 @@ public class TopStoriesFragment extends BaseFragment {
                         Log.i("TAG"," article selected : "+article.getURL());
                     }
                 });
-    }
+    }*/
 
 
     @Override

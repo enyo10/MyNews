@@ -1,6 +1,7 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.controller.activities.ArticleContentActivity;
+import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
 import icepick.Icepick;
@@ -35,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
     Disposable mDisposable;
     List<NYTimesArticle>mNYTimesArticles;
     NYTimesArticleAdapter mAdapter;
+    public static final String BUNDLE_ARTICLE_URL = "BUNDLE_ARTICLE_URL";
 
     // FOR DESIGN
     // SwipeRefreshLayout and RecyclerView declaration.
@@ -64,6 +69,7 @@ public abstract class BaseFragment extends Fragment {
         configureDesign(view);
         configureSwipeRefreshLayout();
         configureRecyclerView();
+        configureOnClickRecyclerView();
         executeHttpRequestWithRetrofit();
         ButterKnife.bind(this,view);
         Icepick.restoreInstanceState (this,savedInstanceState);
@@ -103,6 +109,32 @@ public abstract class BaseFragment extends Fragment {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
     }
+
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+
+                        NYTimesArticle article = mAdapter.getItem(position);
+                        callArticleContentActivity(article.getURL());
+
+                        Log.i("TAG"," article selected : "+article.getURL());
+                    }
+                });
+    }
+
+    // Launch WebViewActivity
+    // Param : 1 _ Url to display
+    //         2 _ Position of the Item in the RecyclerView
+    protected void callArticleContentActivity(String url){
+        Intent myIntent = new Intent(getActivity(), ArticleContentActivity.class);
+        myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
+      //  myIntent.putExtra(BUNDLE_TAB_LAYOUT_POSITION,position);
+        this.startActivity(myIntent);
+    }
+
 
 
     @Override
