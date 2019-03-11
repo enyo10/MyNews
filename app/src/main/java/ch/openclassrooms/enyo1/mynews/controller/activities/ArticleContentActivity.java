@@ -24,7 +24,7 @@ public class ArticleContentActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_web_view_layout)
     WebView mWebView;
-    @BindView(R.id.activity_main_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
 
@@ -53,6 +53,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         // Get a support ActionBar corresponding to this toolbar
+
         ActionBar actionBar = getSupportActionBar();
         // Enable the Up button
         actionBar.setDisplayHomeAsUpEnabled(true);

@@ -1,5 +1,6 @@
 package ch.openclassrooms.enyo1.mynews.controller.activities;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,21 +15,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.view.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    private Toolbar mToolbar;
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
-    FragmentPagerAdapter adapterViewPager;
+    @BindView(R.id.toolbar)Toolbar mToolbar;
+    @BindView(R.id.activity_main_drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.activity_main_nav_view) NavigationView mNavigationView;
+    private  FragmentPagerAdapter adapterViewPager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         // Set up the toolbar.
         configureToolBar ();
@@ -39,22 +44,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //2 - Inflate the menu and add it to the Toolbar
+        // Inflate the menu and add it to the Toolbar
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id =item.getItemId();
+
+        switch (id){
+            case R.id.menu_activity_main_toolbar_search:
+                callSearchActivity();
+                return true;
+            case R.id.activity_main_menu_toolbar_overflow_notifications:
+                callSearchActivity();
+                return true;
+
+            case R.id.activity_main_menu_toolbar_overflow_about:
+                callSearchActivity();
+                return true;
+
+            case R.id.activity_main_menu_toolbar_overflow_help:
+                return true;
+            default:return super.onOptionsItemSelected(item);
+        }
+
+
+    }
+
     /**
      * This method to configure the toolbar.
      */
     public void configureToolBar(){
-         mToolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-      //  ActionBar actionBar = getSupportActionBar();
+       // ActionBar actionBar = getSupportActionBar();
         // Enable the Up button
-      //  actionBar.setDisplayHomeAsUpEnabled(true);
-
+       // actionBar.setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -62,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // 2 - Configure Drawer Layout
     private void configureDrawerLayout(){
-        mDrawerLayout = findViewById(R.id.activity_main_drawer_layout);
+       // mDrawerLayout = findViewById(R.id.activity_main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -70,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // 3 - Configure NavigationView
     private void configureNavigationView(){
-        mNavigationView =  findViewById(R.id.activity_main_nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -119,6 +145,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+
+    /**
+     * This method to call the search activity.
+     */
+    public void callSearchActivity(){
+        Intent searchActivity = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(searchActivity);
     }
 
 

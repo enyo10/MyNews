@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
     <item
-        android:id="@+id/menu_activity_main_search"
+        android:id="@+id/menu_activity_main_toolbar_search"
         android:icon="@drawable/baseline_search_white_48"
         app:showAsAction="ifRoom"
         android:title="Rechercher">
     </item>
-    <item
+  <!-- <item
         android:id="@+id/menu_activity_main_params"
         android:icon="@drawable/baseline_more_vert_white_48"
 
         app:showAsAction="ifRoom"
         android:title="Paramètres">
+    </item>-->
+
+    <item
+        android:id="@+id/activity_main_menu_toolbar_overflow_notifications"
+        android:icon="@drawable/baseline_more_vert_white_48"
+        app:showAsAction="never"
+        android:title="Notifications">
+    </item>
+    <item
+        android:id="@+id/activity_main_menu_toolbar_overflow_help"
+        android:icon="@drawable/baseline_more_vert_white_48"
+        app:showAsAction="never"
+        android:title="Help">
+    </item>
+    <item
+        android:id="@+id/activity_main_menu_toolbar_overflow_about"
+        android:icon="@drawable/baseline_more_vert_white_48"
+        app:showAsAction="never"
+        android:title="About">
     </item>
 </menu>
