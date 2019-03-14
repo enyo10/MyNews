@@ -131,8 +131,18 @@ public abstract class BaseFragment extends Fragment {
     protected void callArticleContentActivity(String url){
         Intent myIntent = new Intent(getActivity(), ArticleContentActivity.class);
         myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
-      //  myIntent.putExtra(BUNDLE_TAB_LAYOUT_POSITION,position);
         this.startActivity(myIntent);
+    }
+
+    // -------------------
+    // UPDATE UI
+    // -------------------
+
+    protected void updateUI(ArrayList<NYTimesArticle> articles){
+        this.mSwipeRefreshLayout.setRefreshing(false);
+        this.mNYTimesArticles.clear();
+        this.mNYTimesArticles.addAll(articles);
+        this.mAdapter.notifyDataSetChanged();
     }
 
 

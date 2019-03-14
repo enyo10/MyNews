@@ -33,12 +33,6 @@ public class MostPopFragment extends BaseFragment {
         return popFragment;
     }
 
-/* public BaseFragment newInstance(String title) {
-        MostPopFragment popFragment=new MostPopFragment ();
-        popFragment.title="MOST POPULAR";
-
-        return popFragment;
-    }*/
 
     @Override
     protected int getFragmentLayout() {
@@ -53,16 +47,6 @@ public class MostPopFragment extends BaseFragment {
 
     }
 
-   /* @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate (R.layout.fragment_most_pop, container, false);
-        TextView tvLabel = (TextView) view.findViewById(R.id.most_popTv);
-        String value= "MOST POPULAR";
-        tvLabel.setText(value);
-
-        return view;
-    }*/
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data)
@@ -115,6 +99,9 @@ public class MostPopFragment extends BaseFragment {
                     @Override
                     public void onNext(MostPopularArticle mostPopularArticle) {
                         Log.i("TAG","Downloading Most pop article");
+
+                        ArrayList<NYTimesArticle>articles=convertToArticlesList(mostPopularArticle);
+                        updateUI(articles);
 
                     }
 

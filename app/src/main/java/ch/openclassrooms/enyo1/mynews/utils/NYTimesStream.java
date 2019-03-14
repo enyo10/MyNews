@@ -44,15 +44,35 @@ public class NYTimesStream {
 
     }
 
+    /**
+     * This method to retrieve a stream of business articles.
+     * @param keyword,
+     *
+     * @param apiKey
+     * @return
+     */
+    public static Observable<ArticleSearch>streamFetchBusinessArticles(String keyword, String apiKey){
+
+        NYTimesService businessArticleService=NYTimesService.retrofit.create(NYTimesService.class);
+       return businessArticleService.getBusinessArticles(keyword,apiKey)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(15,TimeUnit.SECONDS);
+
+    }
 
     /**
-     *
-     * @param apiKey, The api key to retrieve the resource.
-     * @return a Stream, a stream of the searched articles.
+     * This method to retrieve a stream of articles according to the given filters.
+     * @param apiKey,
+     *        api-key
+     * @param filter,
+     *        a map of the filters.
+     * @return Observable<ArticleSearch>,
+     *        a stream of the articles.
      */
-    public static Observable<ArticleSearch> streamFetchArticleSearch(String apiKey){
+    public static Observable<ArticleSearch> streamFetchArticlesSearch(String apiKey,Map<String,String>filter){
         NYTimesService articleSearchService = NYTimesService.retrofit.create(NYTimesService.class);
-        return articleSearchService.getArticleSearch(apiKey)
+        return articleSearchService.getArticleSearch(apiKey,filter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(15, TimeUnit.SECONDS);

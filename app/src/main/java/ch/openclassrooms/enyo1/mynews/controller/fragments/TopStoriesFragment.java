@@ -122,7 +122,7 @@ public class TopStoriesFragment extends BaseFragment {
     }
 */
 
-    // -------------------
+  /*  // -------------------
     // UPDATE UI
     // -------------------
 
@@ -131,7 +131,7 @@ public class TopStoriesFragment extends BaseFragment {
         this.mNYTimesArticles.clear();
         this.mNYTimesArticles.addAll(articles);
         this.mAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
@@ -170,7 +170,7 @@ public class TopStoriesFragment extends BaseFragment {
     @Override
     protected void executeHttpRequestWithRetrofit() {
 
-        this.mDisposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","business")
+        this.mDisposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","home")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories topStories) {

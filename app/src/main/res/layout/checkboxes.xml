@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CheckBox
+                android:id="@+id/checkBox_arts"
+                android:layout_width="185dp"
+                android:layout_height="wrap_content"
+                android:text=" Arts" />
+
+
+            <CheckBox
+                android:id="@+id/checkBox_politics"
+                android:layout_width="225dp"
+                android:layout_height="wrap_content"
+                android:text=" Politics" />
+
+
+        </TableRow>
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/checkBox_business"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Business" />
+
+            <CheckBox
+                android:id="@+id/checkBox_sports"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Sports" />
+
+        </TableRow>
+
+
+        <TableRow>
+
+            <CheckBox
+                android:id="@+id/checkBox_entrepreneurs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Entrepreneurs" />
+
+            <CheckBox
+                android:id="@+id/checkBox_travel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Travel" />
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

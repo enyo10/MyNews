@@ -24,7 +24,7 @@
 
 
         <EditText
-            android:id="@+id/search_edit_text"
+            android:id="@+id/activity_search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search query term"
@@ -99,64 +99,8 @@
         android:orientation="horizontal"
         android:layout_margin="10dp">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <CheckBox
-                    android:id="@+id/checkBox_arts"
-                    android:layout_width="185dp"
-                    android:layout_height="wrap_content"
-                    android:text=" Arts" />
-
-
-                <CheckBox
-                    android:id="@+id/checkBox_politics"
-                    android:layout_width="225dp"
-                    android:layout_height="wrap_content"
-                    android:text=" Politics" />
-
-
-            </TableRow>
-
-            <TableRow>
-
-                <CheckBox
-                    android:id="@+id/checkBox_business"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" Business" />
-
-                <CheckBox
-                    android:id="@+id/checkBox_sports"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" Sports" />
-
-            </TableRow>
-
-
-            <TableRow>
-
-                <CheckBox
-                    android:id="@+id/checkBox_entrepreneurs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" Entrepreneurs" />
-
-                <CheckBox
-                    android:id="@+id/checkBox_travel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" Travel" />
-            </TableRow>
-
-        </TableLayout>
-
+       <include
+           layout="@layout/checkboxes"/>
 
     </LinearLayout>
 

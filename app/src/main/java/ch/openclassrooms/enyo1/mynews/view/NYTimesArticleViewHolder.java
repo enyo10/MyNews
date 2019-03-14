@@ -34,13 +34,13 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
     }
 
 
-    public void updateWithArticles(NYTimesArticle article, RequestManager glide){
+    protected void updateWithArticles(NYTimesArticle article, RequestManager glide){
 
         mTitle_textView.setText(article.getTitle());
         mDate_textView.setText(DateFormatter.formatDate(article.getDate()));
         mSection_textView.setText(article.getSection());
         glide.load(article.getImageURL()).into(mImageView);
-        Log.i("TAG"," url value : "+article.getURL());
+
 
     }
 }

@@ -12,12 +12,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.BusinessFragment;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.MostPopFragment;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.TopStoriesFragment;
 import ch.openclassrooms.enyo1.mynews.view.MyPagerAdapter;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -25,7 +29,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.toolbar)Toolbar mToolbar;
     @BindView(R.id.activity_main_drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.activity_main_nav_view) NavigationView mNavigationView;
+    @BindView(R.id.activity_main_tabs)TabLayout mTabLayout;
+    @BindView(R.id.activity_main_view_pager)ViewPager mViewPager;
+
     private  FragmentPagerAdapter adapterViewPager;
+
+    // Identify each fragment of the ViewPager with a number
+    private static final int FRAGMENT_TOP_STORIES = 0;
+    private static final int FRAGMENT_MOST_POPULAR = 1;
+    private static final int FRAGMENT_BUSINESS = 2;
+
+    public static String POSITION="POSITION";
+
+
 
 
     @Override
@@ -41,6 +57,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         configureDrawerLayout();
         configureNavigationView();
     }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i("TAG"," selected position " + mTabLayout.getSelectedTabPosition());
+        outState.putInt(POSITION, mTabLayout.getSelectedTabPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i("TAG","position restore "+savedInstanceState.getInt(POSITION));
+        mViewPager.setCurrentItem(savedInstanceState.getInt(POSITION));
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,22 +127,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
     }
 
+
+
+
+    private void configureViewPagerAndTabs(){
+       // ViewPager vpPager = findViewById(R.id.activity_main_view_pager);
+        adapterViewPager = new MyPagerAdapter (getSupportFragmentManager());
+        ((MyPagerAdapter) adapterViewPager).addFragment(new TopStoriesFragment(),"TOP STORIES");
+        ((MyPagerAdapter) adapterViewPager).addFragment(new MostPopFragment(),"MOST POPULAR");
+        ((MyPagerAdapter) adapterViewPager).addFragment(new BusinessFragment(),"BUSINESS");
+        mViewPager.setAdapter(adapterViewPager);
+        //Get TabLayout from layout
+       // TabLayout tabs= findViewById(R.id.activity_main_tabs);
+        //Glue TabLayout and ViewPager together
+        mTabLayout.setupWithViewPager(mViewPager);
+        //Design purpose. Tabs have the same width
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+
+    }
+
     // 3 - Configure NavigationView
     private void configureNavigationView(){
         mNavigationView.setNavigationItemSelectedListener(this);
-    }
-
-    private void configureViewPagerAndTabs(){
-        ViewPager vpPager = findViewById(R.id.activity_main_view_pager);
-        adapterViewPager = new MyPagerAdapter (getSupportFragmentManager());
-        vpPager.setAdapter(adapterViewPager);
-        //Get TabLayout from layout
-        TabLayout tabs= findViewById(R.id.activity_main_tabs);
-        //Glue TabLayout and ViewPager together
-        tabs.setupWithViewPager(vpPager);
-        //Design purpose. Tabs have the same width
-        tabs.setTabMode(TabLayout.MODE_FIXED);
-
     }
 
 
