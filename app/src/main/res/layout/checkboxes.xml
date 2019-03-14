@@ -16,6 +16,7 @@
                 android:id="@+id/checkBox_arts"
                 android:layout_width="185dp"
                 android:layout_height="wrap_content"
+                android:onClick="onCheckBoxClicked"
                 android:text=" Arts" />
 
 
@@ -23,6 +24,7 @@
                 android:id="@+id/checkBox_politics"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
+                android:onClick="onCheckBoxClicked"
                 android:text=" Politics" />
 
 
@@ -34,13 +36,15 @@
                 android:id="@+id/checkBox_business"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onCheckBoxClicked"
                 android:text=" Business" />
 
             <CheckBox
                 android:id="@+id/checkBox_sports"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" Sports" />
+                android:onClick="onCheckBoxClicked"
+                android:text="Sports" />
 
         </TableRow>
 
@@ -51,12 +55,14 @@
                 android:id="@+id/checkBox_entrepreneurs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onCheckBoxClicked"
                 android:text=" Entrepreneurs" />
 
             <CheckBox
                 android:id="@+id/checkBox_travel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="onCheckBoxClicked"
                 android:text=" Travel" />
         </TableRow>
 

@@ -5,6 +5,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import io.reactivex.disposables.Disposable;
 
 public class SearchActivity extends AppCompatActivity {
@@ -41,12 +44,18 @@ public class SearchActivity extends AppCompatActivity {
     private SimpleDateFormat displayDateFormatter;
     private Calendar newCalendar;
 
+    private Filters mFilters;
+
+    // Declare Subscription
+    protected Disposable mDisposable;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        mFilters=new Filters();
 
         ButterKnife.bind(this);
         configureToolBar();
@@ -65,9 +74,68 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method to save or remove the selected category.
+     * @param v,
+     *      the view clicked.
+     */
+    public void onCheckBoxClicked(View v){
+        // Is the view now checked?
+        boolean checked = ((CheckBox) v).isChecked();
 
-    // Declare Subscription
-    protected Disposable mDisposable;
+        // Check which checkbox was clicked
+        switch(v.getId()) {
+            case R.id.checkBox_arts:
+                if (checked)
+                // Put value on filters
+                    mFilters.addValue("Arts");
+            else
+                // Remove the remove the value
+                mFilters.removeValue("Arts");
+                break;
+            case R.id.checkBox_business:
+                if (checked)
+                 mFilters.addValue("Business");
+            else
+                mFilters.removeValue("Business");
+                break;
+            case R.id.checkBox_entrepreneurs:
+                if (checked)
+                    // Put value on filters
+                    mFilters.addValue("Entrepreneurs");
+                else
+                    // Remove the remove the value
+                    mFilters.removeValue("Entrepreneurs");
+                break;
+            case R.id.checkBox_politics:
+                if (checked)
+                    mFilters.addValue("Politics");
+                else
+                    mFilters.removeValue("Politics");
+                break;
+
+            case R.id.checkBox_sports:
+                if (checked)
+                    // Put value on filters
+                    mFilters.addValue("Sport");
+                else
+                    // Remove the remove the value
+                    mFilters.removeValue("Sport");
+                break;
+            case R.id.checkBox_travel:
+                if (checked)
+                    mFilters.addValue("Travel");
+                else
+                    mFilters.removeValue("Travel");
+                break;
+
+        }
+        Log.i("TAG"," values clicked : " +mFilters.toString());
+
+    }
+
+
+
 
     // -------------------
     // MANAGE DATE FIELDS
