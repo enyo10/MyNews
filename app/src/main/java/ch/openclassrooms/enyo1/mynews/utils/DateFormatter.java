@@ -26,12 +26,16 @@ public class DateFormatter {
      * @return
      */
     public static String dateFormatYYYYMMJJ(String date){
-
-        String YYYY = date.substring(0,4);           // Year
+        //03/03/2019
+        /*String YYYY = date.substring(0,4);           // Year
         String MM = date.substring(5,7);             // Month
-        String DD = date.substring(8,10);            // Day
+        String DD = date.substring(8,10);   */         // Day
 
-        return YYYY+MM+DD;
+        String dd =date.substring(0,2);
+        String mm =date.substring(3,5);
+        String yyyy=date.substring(6);
+
+        return yyyy+mm+dd;
     }
 
     /**

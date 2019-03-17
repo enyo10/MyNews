@@ -10,7 +10,7 @@ public class DateFormatterTest {
 
     @Test
     public void dateReformatYYYYMMJJ_Unit_Test() {
-        String originDate = "2019-03-14T11:38:10-04:00";         //Original date to reformat
+        String originDate = "14/03/2019";         //Original date to reformat
         assertEquals("20190314", DateFormatter.dateFormatYYYYMMJJ(originDate));
     }
 

@@ -111,11 +111,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public void configureToolBar(){
         setSupportActionBar(mToolbar);
-       // ActionBar actionBar = getSupportActionBar();
-        // Enable the Up button
-       // actionBar.setDisplayHomeAsUpEnabled(true);
-
-
 
     }
 
@@ -128,7 +123,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
+    /**
+     *
+     */
 
     private void configureViewPagerAndTabs(){
        // ViewPager vpPager = findViewById(R.id.activity_main_view_pager);
@@ -137,8 +134,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ((MyPagerAdapter) adapterViewPager).addFragment(new MostPopFragment(),"MOST POPULAR");
         ((MyPagerAdapter) adapterViewPager).addFragment(new BusinessFragment(),"BUSINESS");
         mViewPager.setAdapter(adapterViewPager);
-        //Get TabLayout from layout
-       // TabLayout tabs= findViewById(R.id.activity_main_tabs);
+
         //Glue TabLayout and ViewPager together
         mTabLayout.setupWithViewPager(mViewPager);
         //Design purpose. Tabs have the same width

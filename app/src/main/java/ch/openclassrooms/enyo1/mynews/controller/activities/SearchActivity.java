@@ -1,6 +1,7 @@
 package ch.openclassrooms.enyo1.mynews.controller.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -17,11 +23,13 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
-import io.reactivex.disposables.Disposable;
 
 public class SearchActivity extends AppCompatActivity {
+
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
@@ -46,8 +54,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private Filters mFilters;
 
-    // Declare Subscription
-    protected Disposable mDisposable;
+    public static final String BUNDLE_SEARCH_FILTER = "BUNDLE_SEARCH_FILTER";
 
 
 
@@ -58,6 +65,7 @@ public class SearchActivity extends AppCompatActivity {
         mFilters=new Filters();
 
         ButterKnife.bind(this);
+        manageDateFields();
         configureToolBar();
     }
 
@@ -74,6 +82,16 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
+    // Click on BeginDate Field
+    @OnClick(R.id.activity_search_begin_date)
+    public void onClickBeginDate(View v) {
+        mBeginDatePickerDialog.show();
+    }
+    // Click on EndDate Field
+    @OnClick(R.id.activity_search_end_date)
+    public void onClickEndDate(View v) {
+        mEndDatePickerDialog.show();
+    }
     /**
      * This method to save or remove the selected category.
      * @param v,
@@ -88,53 +106,51 @@ public class SearchActivity extends AppCompatActivity {
             case R.id.checkBox_arts:
                 if (checked)
                 // Put value on filters
-                    mFilters.addValue("Arts");
+                    mFilters.addSelectedCategory("Arts");
             else
                 // Remove the remove the value
-                mFilters.removeValue("Arts");
+                mFilters.removeSelectedCategory("Arts");
                 break;
             case R.id.checkBox_business:
                 if (checked)
-                 mFilters.addValue("Business");
+                 mFilters.addSelectedCategory("Business");
             else
-                mFilters.removeValue("Business");
+                mFilters.removeSelectedCategory("Business");
                 break;
             case R.id.checkBox_entrepreneurs:
                 if (checked)
                     // Put value on filters
-                    mFilters.addValue("Entrepreneurs");
+                    mFilters.addSelectedCategory("Entrepreneurs");
                 else
                     // Remove the remove the value
-                    mFilters.removeValue("Entrepreneurs");
+                    mFilters.removeSelectedCategory("Entrepreneurs");
                 break;
             case R.id.checkBox_politics:
                 if (checked)
-                    mFilters.addValue("Politics");
+                    mFilters.addSelectedCategory("Politics");
                 else
-                    mFilters.removeValue("Politics");
+                    mFilters.removeSelectedCategory("Politics");
                 break;
 
             case R.id.checkBox_sports:
                 if (checked)
                     // Put value on filters
-                    mFilters.addValue("Sport");
+                    mFilters.addSelectedCategory("Sport");
                 else
                     // Remove the remove the value
-                    mFilters.removeValue("Sport");
+                    mFilters.removeSelectedCategory("Sport");
                 break;
             case R.id.checkBox_travel:
                 if (checked)
-                    mFilters.addValue("Travel");
+                    mFilters.addSelectedCategory("Travel");
                 else
-                    mFilters.removeValue("Travel");
+                    mFilters.removeSelectedCategory("Travel");
                 break;
 
         }
-        Log.i("TAG"," values clicked : " +mFilters.toString());
+
 
     }
-
-
 
 
     // -------------------
@@ -148,7 +164,9 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     // Manage BeginDate Field
-    private void setBeginDateField() {
+
+    public void setBeginDateField() {
+
         // Create a DatePickerDialog and manage it
         mBeginDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -157,6 +175,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 // Display date selected
                 mBeginDate.setText(displayDateFormatter.format(newDate.getTime()));
+                Log.i("TAG","in set Begin date : "+mBeginDate.getText());
 
             }
 
@@ -164,6 +183,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     // Manage EndDate Field
+
     private void setEndDateField() {
         // Create a DatePickerDialog and manage it
         mEndDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -173,9 +193,73 @@ public class SearchActivity extends AppCompatActivity {
 
                 // Display date selected
                 mEndDate.setText(displayDateFormatter.format(newDate.getTime()));
+                Log.i("TAG","in set Begin date : "+mEndDate.getText());
 
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    // This method to display a toast message.
+    private void callToast(String message){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                message,
+                Toast.LENGTH_SHORT);
+
+        toast.show();
+    }
+
+    /**
+     * This method to send the request to the api.
+     * @param view,
+     *      the view that fire the request.
+     */
+    @OnClick(R.id.activity_search_button)
+    public void sendRequest(View view){
+
+        boolean searchWordsISSet=false;
+        boolean beginDateIsSet=false;
+        boolean endDateIsSet =false;
+        boolean categoryIsSet=false;
+        //
+        if(mEditText.getText().toString().equals(""))
+            callToast("Search text must be set.");
+        else{
+            mFilters.setKeyWord(mEditText.getText().toString());
+            searchWordsISSet=true;
+        }
+
+        if(mBeginDate.getText().toString().equals(""))
+            callToast("Begin date must be set");
+        else{
+            mFilters.setBeginDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
+            beginDateIsSet=true;
+        }
+
+
+        if(mEndDate.getText().toString().equals(""))
+            callToast("End date must be set");
+        else{
+            mFilters.setEndDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
+            endDateIsSet=true;
+        }
+
+        if(mFilters.getSelectedValues().size()==0)
+            callToast("At least one category must be chosen");
+        else
+            categoryIsSet=true;
+
+
+        if(searchWordsISSet & beginDateIsSet & endDateIsSet &categoryIsSet){
+            Log.i("TAG","OK");
+            JSONObject jsonObject =new JSONObject(mFilters.getFilters());
+            Log.i("TAG"," JSon : " +jsonObject);
+
+            Intent resultSearch = new Intent(SearchActivity.this,SearchResultActivity.class);
+           resultSearch.putExtra(BUNDLE_SEARCH_FILTER,jsonObject.toString());
+           startActivity(resultSearch);
+
+        }
+
     }
 }

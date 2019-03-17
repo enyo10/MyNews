@@ -8,23 +8,25 @@ import java.util.Map;
  * This class model the list of the filter to pass to the request in NYTimesStream.
  */
 public class Filters implements Serializable {
-    private String mKeyWords;
+    private String mKeyWords="";
+    private String mBeginDate="";
+    private String mEndDate="";
 
-    private Map<String ,String> mSelectedValues;
+    private Map<String ,String> mSelectedCategory;
     private Map<String,String>mFilters;
 
     public Filters(){
-        this.mSelectedValues=new HashMap<>();
+        this.mSelectedCategory=new HashMap<>();
         this.mFilters=new HashMap<>();
-        this.mKeyWords="";
+
     }
 
     public Map<String, String> getSelectedValues() {
-        return mSelectedValues;
+        return mSelectedCategory;
     }
 
     public void setSelectedValues(Map<String, String> selectedValues) {
-        mSelectedValues = selectedValues;
+        mSelectedCategory = selectedValues;
     }
 
     public void setKeyWord(String keyWords) {
@@ -35,14 +37,47 @@ public class Filters implements Serializable {
         return mKeyWords;
     }
 
+    public void setKeyWords(String keyWords) {
+        mKeyWords = keyWords;
+    }
+
+    public String getBeginDate() {
+        return mBeginDate;
+    }
+
+    public void setBeginDate(String beginDate) {
+        mBeginDate = beginDate;
+    }
+
+    public String getEndDate() {
+        return mEndDate;
+    }
+
+    public void setEndDate(String endDate) {
+        mEndDate = endDate;
+    }
+
+    public void addBeginDate(String beginDate) {
+        mBeginDate = beginDate;
+    }
+
+
+    public void addEndDate(String endDate) {
+        mEndDate = endDate;
+    }
+
+    public void setFilters(Map<String, String> filters) {
+        mFilters = filters;
+    }
+
     /**
      * Add a value to the map. The value of key, is the same as value.
      * @param value,
      *        the value to add.
      */
-    public void addValue(String value){
-        if(!mSelectedValues.containsKey(value))
-        this.mSelectedValues.put(value,value);
+    public void addSelectedCategory(String value){
+        if(!mSelectedCategory.containsKey(value))
+        this.mSelectedCategory.put(value,value);
     }
 
     /**
@@ -50,9 +85,9 @@ public class Filters implements Serializable {
      * @param key,
      *      remove the value with key key.
      */
-    public void removeValue(String key){
-        if(mSelectedValues.containsKey(key)){
-            mSelectedValues.remove(key);
+    public void removeSelectedCategory(String key){
+        if(mSelectedCategory.containsKey(key)){
+            mSelectedCategory.remove(key);
         }
     }
 
@@ -68,13 +103,16 @@ public class Filters implements Serializable {
         // -- Query key words.
         if (this.getKeyWords() !="") mFilters.put("q", getKeyWords());
         //-- Put selected category.
-        mFilters.put("fq", toString());
+        if(this.mSelectedCategory.size()!=0) mFilters.put("fq", formatSelectedCategory());
+        //-- Put the begin date.
+        if(this.getBeginDate()!="")  mFilters.put("begin_date",getBeginDate());
+        //-- Put the begin date.
+        if(this.getEndDate()!="")mFilters.put("end_date",getEndDate());
 
         return mFilters;
     }
 
-    @Override
-    public String toString() {
+    private String formatSelectedCategory(){
         String v="news_desk:(";
         StringBuilder builder = new StringBuilder(v);
         for(String a:this.getSelectedValues().values()){
@@ -84,4 +122,6 @@ public class Filters implements Serializable {
 
         return builder.toString();
     }
+
+
 }

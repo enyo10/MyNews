@@ -11,13 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.NotificationsActivity"
-            android:parentActivityName=".controller.activities.MainActivity"></activity>
+        <activity android:name=".controller.activities.SearchResultActivity"></activity>
+        <activity
+            android:name=".controller.activities.NotificationsActivity"
+            android:parentActivityName=".controller.activities.MainActivity" />
         <activity
             android:name=".controller.activities.ArticleContentActivity"
             android:parentActivityName=".controller.activities.MainActivity" />
-        <activity android:name=".controller.activities.SearchActivity"
-            android:parentActivityName=".controller.activities.MainActivity"/>
+        <activity
+            android:name=".controller.activities.SearchActivity"
+            android:parentActivityName=".controller.activities.MainActivity" />
         <activity android:name=".controller.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
