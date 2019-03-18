@@ -28,13 +28,6 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class TopStoriesFragment extends BaseFragment {
 
-   /* private Disposable disposable;
-    private List<NYTimesArticle> mNYTimesArticles;
-    private NYTimesArticleAdapter mTopStoriesAdapter;
-
-    SwipeRefreshLayout mSwipeRefreshLayout;
-    RecyclerView mRecyclerView;
-*/
 
     @Override
     public BaseFragment newInstance() {
@@ -42,6 +35,10 @@ public class TopStoriesFragment extends BaseFragment {
         topStoriesFragment.title="TOP STORIES";
 
         return topStoriesFragment;
+    }
+
+    public TopStoriesFragment() {
+        // Required empty public constructor
     }
 
 
@@ -56,82 +53,11 @@ public class TopStoriesFragment extends BaseFragment {
         mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
         mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
 
-    //    configureSwipeRefreshLayout();
-//        configureRecyclerView();
-       // executeHttpRequestWithRetrofit();
-        //configureOnClickRecyclerView();
-
 
     }
 
-    public TopStoriesFragment() {
-        // Required empty public constructor
-    }
-
-    // -----------------
-    // CONFIGURATION
-    // -----------------
-
-   /* // 3 - Configure RecyclerView, Adapter, LayoutManager & glue it together
-    private void configureRecyclerView(){
-        // 3.1 - Reset list
-        this.mNYTimesArticles = new ArrayList<>();
-        // 3.2 - Create adapter passing the list of users
-        this.mTopStoriesAdapter = new NYTimesArticleAdapter(this.mNYTimesArticles, Glide.with(this));
-        // 3.3 - Attach the adapter to the recyclerview to populate items
-        this.mRecyclerView.setAdapter(this.mTopStoriesAdapter);
-        // 3.4 - Set layout manager to position the items
-        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }*/
-
-    // -------------------
-    // HTTP (RxJAVA)
-    // -------------------
 
 
-
-   /* private void executeHttpRequestWithRetrofit() {
-        // this.updateUIWhenStartingHTTPRequest();
-
-        this.disposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","home")
-                .subscribeWith(new DisposableObserver<TopStories>() {
-            @Override
-            public void onNext(TopStories topStories) {
-                // 6 - Update RecyclerView after getting results from Github API
-                Log.i("TAG","Download");
-                ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
-
-               updateUI(articles);
-
-               Log.i("TAG","Number of Results "+  topStories.getNumResults());
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-                Log.e("TAG","Youps aie aie "+Log.getStackTraceString(e));
-            }
-
-            @Override
-            public void onComplete() {
-
-                Log.i("TAG","Downloaded");
-            }
-        });
-    }
-*/
-
-  /*  // -------------------
-    // UPDATE UI
-    // -------------------
-
-    private void updateUI(ArrayList<NYTimesArticle> articles){
-        this.mSwipeRefreshLayout.setRefreshing(false);
-        this.mNYTimesArticles.clear();
-        this.mNYTimesArticles.addAll(articles);
-        this.mAdapter.notifyDataSetChanged();
-    }*/
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
@@ -192,26 +118,6 @@ public class TopStoriesFragment extends BaseFragment {
                 });
 
     }
-
-    // -----------------
-    // ACTION
-    // -----------------
-
-    // 1 - Configure item click on RecyclerView
-   /* private void configureOnClickRecyclerView(){
-        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Log.e("TAG", "Position : "+position);
-
-                        NYTimesArticle article = mAdapter.getItem(position);
-
-                        Log.i("TAG"," article selected : "+article.getURL());
-                    }
-                });
-    }*/
-
 
     @Override
     public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {

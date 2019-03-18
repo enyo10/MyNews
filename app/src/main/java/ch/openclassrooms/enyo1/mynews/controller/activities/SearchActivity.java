@@ -229,7 +229,7 @@ public class SearchActivity extends AppCompatActivity {
             searchWordsISSet=true;
         }
 
-        if(mBeginDate.getText().toString().equals(""))
+       /* if(mBeginDate.getText().toString().equals(""))
             callToast("Begin date must be set");
         else{
             mFilters.setBeginDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
@@ -242,7 +242,7 @@ public class SearchActivity extends AppCompatActivity {
         else{
             mFilters.setEndDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
             endDateIsSet=true;
-        }
+        }*/
 
         if(mFilters.getSelectedValues().size()==0)
             callToast("At least one category must be chosen");
@@ -250,7 +250,7 @@ public class SearchActivity extends AppCompatActivity {
             categoryIsSet=true;
 
 
-        if(searchWordsISSet & beginDateIsSet & endDateIsSet &categoryIsSet){
+        if(searchWordsISSet  &categoryIsSet){
             Log.i("TAG","OK");
             JSONObject jsonObject =new JSONObject(mFilters.getFilters());
             Log.i("TAG"," JSon : " +jsonObject);

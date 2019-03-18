@@ -22,10 +22,8 @@ public class ArticleContentActivity extends AppCompatActivity {
     // For Debug
     private static final String TAG = ArticleContentActivity.class.getSimpleName();
 
-    @BindView(R.id.activity_web_view_layout)
-    WebView mWebView;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.activity_web_view_layout) WebView mWebView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
 
     @Override
