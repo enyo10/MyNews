@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 
@@ -28,11 +29,14 @@ import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Doc;
 import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
+import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
+
+import static ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment.BUNDLE_ARTICLE_URL;
 
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -64,9 +68,11 @@ public class SearchResultActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        //configureDesign(view);
+        configureSwipeRefreshLayout();
         configureRecyclerView();
+        configureOnClickRecyclerView();
         executeHttpRequestWithRetrofit();
-
     }
 
 
@@ -110,6 +116,18 @@ public class SearchResultActivity extends AppCompatActivity {
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
+    /**
+     * This method to refresh the layout.
+     */
+    protected void configureSwipeRefreshLayout(){
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                executeHttpRequestWithRetrofit();
+            }
+        });
+    }
+
 
     // Retrofit request.
     protected void executeHttpRequestWithRetrofit() {
@@ -140,6 +158,31 @@ public class SearchResultActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Log.e("TAG", "Position : "+position);
+
+                        NYTimesArticle article = mAdapter.getItem(position);
+                        callArticleContentActivity(article.getURL());
+
+                        Log.i("TAG"," article selected : "+article.getURL());
+                    }
+                });
+    }
+
+    // Launch WebViewActivity
+    // Param : 1 _ Url to display
+    //         2 _ Position of the Item in the RecyclerView
+    protected void callArticleContentActivity(String url){
+        Intent myIntent = new Intent(this, ArticleContentActivity.class);
+        myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
+        this.startActivity(myIntent);
+    }
+
 
     // -------------------
     // UPDATE UI

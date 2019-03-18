@@ -65,13 +65,14 @@ public abstract class BaseFragment extends Fragment {
         // Get layout identifier from abstract method
         View view = inflater.inflate(getFragmentLayout(), container, false);
      // View  view = inflater.inflate(R.layout.fragment_base_layout, container, false);
+        ButterKnife.bind(this,view);
 
         configureDesign(view);
         configureSwipeRefreshLayout();
         configureRecyclerView();
         configureOnClickRecyclerView();
         executeHttpRequestWithRetrofit();
-        ButterKnife.bind(this,view);
+
         Icepick.restoreInstanceState (this,savedInstanceState);
         return view;
     }

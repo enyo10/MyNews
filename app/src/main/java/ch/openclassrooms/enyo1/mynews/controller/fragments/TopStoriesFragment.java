@@ -53,7 +53,6 @@ public class TopStoriesFragment extends BaseFragment {
         mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
         mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
 
-
     }
 
 
@@ -90,8 +89,7 @@ public class TopStoriesFragment extends BaseFragment {
 
         return list;
     }
-
-
+    
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
