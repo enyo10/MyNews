@@ -89,7 +89,7 @@ public class TopStoriesFragment extends BaseFragment {
 
         return list;
     }
-    
+
 
     @Override
     protected void executeHttpRequestWithRetrofit() {

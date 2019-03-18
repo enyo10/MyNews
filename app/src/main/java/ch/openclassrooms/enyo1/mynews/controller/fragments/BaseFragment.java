@@ -111,6 +111,9 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
+    /**
+     * This method show the selected article in a Web view.
+     */
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(mRecyclerView, R.layout.fragment_article_item)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -126,19 +129,26 @@ public abstract class BaseFragment extends Fragment {
                 });
     }
 
-    // Launch WebViewActivity
-    // Param : 1 _ Url to display
-    //         2 _ Position of the Item in the RecyclerView
+
+    /**
+     * This method launch the ArticleContentActivity that is a web view that show the content
+     * of an article.
+     * @param url,
+     *       the url of the article content.
+     */
     protected void callArticleContentActivity(String url){
         Intent myIntent = new Intent(getActivity(), ArticleContentActivity.class);
         myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
         this.startActivity(myIntent);
     }
 
-    // -------------------
-    // UPDATE UI
-    // -------------------
-
+    /**
+     * This method to update the user interface view with the article list by notify the change to
+     * the adapter.
+     * @param articles,
+     *       the articles list.
+     *
+     */
     protected void updateUI(ArrayList<NYTimesArticle> articles){
         this.mSwipeRefreshLayout.setRefreshing(false);
         this.mNYTimesArticles.clear();

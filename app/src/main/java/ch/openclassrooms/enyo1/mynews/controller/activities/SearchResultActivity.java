@@ -59,6 +59,7 @@ public class SearchResultActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         configureToolbar();
+        // Get the json string of the filter map and convert it to map object.
 
         Intent intent = getIntent();
         String jsonString =intent.getStringExtra(SearchActivity.BUNDLE_SEARCH_FILTER);
@@ -68,14 +69,20 @@ public class SearchResultActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //configureDesign(view);
+
         configureSwipeRefreshLayout();
         configureRecyclerView();
         configureOnClickRecyclerView();
         executeHttpRequestWithRetrofit();
     }
 
-
+    /**
+     * Helper method to convert a json string to a Map<String,String> Object.
+     * @param jsonString,
+     *        The Json string to convert.
+     * @return Map<String,String> , the result of the conversion.
+     * @throws JSONException, an exception when the mapping fail.
+     */
     private Map<String, String>jsonToMap(String jsonString)throws JSONException {
         HashMap<String, String> map = new HashMap<>();
         JSONObject jObject = new JSONObject(jsonString);
@@ -91,7 +98,6 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     private void configureToolbar(){
-
         //Set the toolbar
         setSupportActionBar(mToolbar);
 
@@ -174,9 +180,8 @@ public class SearchResultActivity extends AppCompatActivity {
                 });
     }
 
-    // Launch WebViewActivity
+    // Launch the ArticleContentActivity
     // Param : 1 _ Url to display
-    //         2 _ Position of the Item in the RecyclerView
     protected void callArticleContentActivity(String url){
         Intent myIntent = new Intent(this, ArticleContentActivity.class);
         myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
