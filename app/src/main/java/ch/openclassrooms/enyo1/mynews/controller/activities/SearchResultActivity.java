@@ -226,9 +226,8 @@ public class SearchResultActivity extends AppCompatActivity {
             String section = docs.getNewsDesk();
             if (docs.getSectionName() != null) section = section + " > " + docs.getSectionName();
             nyTimesArticle.setSection(section);
-
-            // -- Affected date label ( SSAAMMJJ )
-            nyTimesArticle.setDate(DateFormatter.dateFormatYYYYMMJJ(docs.getPubDate()));
+            
+            nyTimesArticle.setDate(docs.getPubDate());
 
             // -- Affected Title
             nyTimesArticle.setTitle(docs.getSnippet());

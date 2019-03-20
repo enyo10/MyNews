@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 callSearchActivity();
                 return true;
             case R.id.activity_main_menu_toolbar_overflow_notifications:
-                callSearchActivity();
+                callNotificationActivity();
                 return true;
 
             case R.id.activity_main_menu_toolbar_overflow_about:
@@ -190,6 +190,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(searchActivity);
     }
 
+    /**
+     * This method to call the notification activity.
+     */
+    protected void callNotificationActivity(){
+        Intent notificationActivity = new Intent(MainActivity.this, NotificationsActivity.class);
+        startActivity(notificationActivity);
+    }
 
 
 }

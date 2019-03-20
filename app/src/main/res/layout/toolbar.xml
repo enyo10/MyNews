@@ -23,6 +23,7 @@
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     app:theme="@style/ToolbarStyle"
+    app:popupTheme="@style/ToolbarOverlay"
 
     />
 <!--

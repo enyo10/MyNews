@@ -64,6 +64,7 @@ public class TopStoriesFragment extends BaseFragment {
         TopStories topStories = (TopStories) data;
         ArrayList<NYTimesArticle>list =new ArrayList<>();
 
+
         if(topStories.getResults().size()!=0) {
 
             for (Result result : topStories.getResults()) {
