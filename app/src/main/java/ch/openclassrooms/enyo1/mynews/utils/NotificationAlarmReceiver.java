@@ -1,24 +1,33 @@
 package ch.openclassrooms.enyo1.mynews.utils;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Doc;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
 public class NotificationAlarmReceiver extends BroadcastReceiver {
+
+    private Context mContext;
     private Doc mDoc;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        mContext=context;
         Log.i("Receiver","Received info");
 
         executeHttpRequestWithRetrofit();
@@ -55,4 +64,45 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
                     }
                 });
     }
+
+    /**
+     * This method to send the notification.
+     */
+    protected void sendNotification(){
+
+        String title = "MyNews make you a little hello";
+        String notificationDescription = "Today, "+ " number of found" +" articles match your expectations.";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d("TAG", "onReceive: Android 8.0 (API level 26) and higher");
+            CharSequence name = "Channel";
+            String channelDescription = "Channel Description";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("My Channel", name, importance);
+            channel.setDescription(channelDescription);
+            NotificationManager notificationManagerNew = mContext.getSystemService(NotificationManager.class);
+            notificationManagerNew.createNotificationChannel(channel);
+            Notification notification = new Notification.Builder(mContext,"My Channel")
+                    .setContentTitle(title)
+                    .setStyle(new Notification.BigTextStyle().bigText(notificationDescription))
+                    .setContentText(notificationDescription)
+                  //  .setSmallIcon(R.drawable.ic_fiber_new_black_24dp)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .build();
+            notificationManagerNew.notify(1, notification);
+        }else{
+            Log.d("TAG", "onReceive: Other Android Version");
+            Notification notification = new Notification.Builder(mContext)
+                    .setContentTitle(title)
+                    .setStyle(new Notification.BigTextStyle().bigText(notificationDescription))
+                    .setContentText(notificationDescription)
+                   // .setSmallIcon(R.drawable.ic_fiber_new_black_24dp)
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .build();
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(1, notification);
+        }
+    }
+
+
 }
