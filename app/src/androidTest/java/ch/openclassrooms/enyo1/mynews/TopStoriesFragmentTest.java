@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TopStoriesFragmentTest {
 
     @Test
-    public void fetchTopStoriesTest() throws Exception {
+    public void fetchTopStoriesTest() {
         //1 - Get the stream
         Observable<TopStories> observableTopStories = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","sports");
         //2 - Create a new TestObserver

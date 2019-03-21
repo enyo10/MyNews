@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class MostPopFragmentTest {
 
     @Test
-    public void fetchMostPopArticles()throws Exception{
+    public void fetchMostPopArticles() {
         //1 - Get the stream
         Observable<MostPopularArticle> observableMostPopArticle = NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r");
         //2 - Create a new TestObserver

@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -252,11 +253,12 @@ public class SearchActivity extends AppCompatActivity {
 
         if(searchWordsISSet  &categoryIsSet){
             Log.i("TAG","OK");
-            JSONObject jsonObject =new JSONObject(mFilters.getFilters());
-            Log.i("TAG"," JSon : " +jsonObject);
+           // JSONObject jsonObject =new JSONObject(mFilters.getFilters());
+           String stringMap= Filters.mapToJsonString(mFilters.getFilters());
+            Log.i("TAG"," JSon : " +stringMap);
 
             Intent resultSearch = new Intent(SearchActivity.this,SearchResultActivity.class);
-           resultSearch.putExtra(BUNDLE_SEARCH_FILTER,jsonObject.toString());
+           resultSearch.putExtra(BUNDLE_SEARCH_FILTER,stringMap);
            startActivity(resultSearch);
 
         }

@@ -12,19 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
-
-        <include
-            layout="@layout/checkboxes"/>
-
-    </LinearLayout>
-
-    <!-- Keys Words zone -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,37 +33,41 @@
 
     </LinearLayout>
 
-    <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
-
-                   <View
-                       android:layout_width="1dp"
-                       android:layout_height="match_parent"
-                       android:background="@android:color/background_dark" />
-
-    </LinearLayout>
-
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
-        <Switch
-            android:id="@+id/activity_notifications_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textSize="16dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="30dp"
-            android:text="Enable notifications (once per day)" />
+        <include
+            layout="@layout/checkboxes"/>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@android:color/background_dark" />
+
+
+
+    <Switch
+        android:id="@+id/activity_notifications_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:text="Enable notifications (once per day)"
+        android:textSize="16dp" />
+
+
+
+
+
 
 
 

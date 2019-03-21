@@ -29,6 +29,7 @@ import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Doc;
 import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
+import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
@@ -64,7 +65,7 @@ public class SearchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String jsonString =intent.getStringExtra(SearchActivity.BUNDLE_SEARCH_FILTER);
         try {
-            mFilterMap =jsonToMap(jsonString);
+            mFilterMap = Filters.jsonToMap(jsonString);
             Log.i("TAG","JsonMap: "+mFilterMap.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -78,11 +79,11 @@ public class SearchResultActivity extends AppCompatActivity {
 
     /**
      * Helper method to convert a json string to a Map<String,String> Object.
-     * @param jsonString,
+     * //@param jsonString,
      *        The Json string to convert.
      * @return Map<String,String> , the result of the conversion.
      * @throws JSONException, an exception when the mapping fail.
-     */
+     *//*
     private Map<String, String>jsonToMap(String jsonString)throws JSONException {
         HashMap<String, String> map = new HashMap<>();
         JSONObject jObject = new JSONObject(jsonString);
@@ -95,7 +96,7 @@ public class SearchResultActivity extends AppCompatActivity {
 
         }
         return map;
-    }
+    }*/
 
     private void configureToolbar(){
         //Set the toolbar
@@ -210,8 +211,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
             //  --> Create a news <--
             NYTimesArticle nyTimesArticle = new NYTimesArticle();
-
-            // -- Affected newsURL
 
             // -- Affected newsURL
             nyTimesArticle.setURL(docs.getWebUrl());
