@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/keys_words_edit"
+            android:id="@+id/activity_notification_words_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1"

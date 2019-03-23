@@ -160,11 +160,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         switch (id){
-            case R.id.activity_main_drawer_news :
+            case R.id.activity_main_drawer_top_stories :
+                mViewPager.setCurrentItem(FRAGMENT_TOP_STORIES);
                 break;
-            case R.id.activity_main_drawer_profile:
+            case R.id.activity_main_drawer_most_popular:
+                mViewPager.setCurrentItem(FRAGMENT_MOST_POPULAR);
                 break;
-            case R.id.activity_main_drawer_settings:
+            case R.id.activity_main_drawer_business:
+                mViewPager.setCurrentItem(FRAGMENT_BUSINESS);
                 break;
             default:
                 break;

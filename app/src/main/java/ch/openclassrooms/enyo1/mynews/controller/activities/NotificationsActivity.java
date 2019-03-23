@@ -16,15 +16,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -39,6 +42,8 @@ public class NotificationsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.activity_notification_words_edit)
+    EditText mEditText;
     @BindView(R.id.checkBox_arts)
     CheckBox mCheckBox_arts;
     @BindView(R.id.checkBox_business)
@@ -60,6 +65,10 @@ public class NotificationsActivity extends AppCompatActivity {
     public static final String NOTIFICATION_FILTER_KEY = NotificationsActivity.class.getName();
     private static final String NOTIFICATION_SETTING="NOTIFICATION_BUTTON_SET";
     private boolean isNotificationSet=false;
+    private PendingIntent mPendingIntent;
+    private List<View>mViewList=new ArrayList<>();
+    private Map<String,String>mFilterMapValues=new HashMap<>();
+
 
 
 
@@ -70,10 +79,7 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         ButterKnife.bind(this);
 
-        mSharedPreferences = getPreferences(Context.MODE_PRIVATE);
-
-       Map<String,String>map= getSearchSetting();
-
+        mSharedPreferences = getSharedPreferences("key",Context.MODE_PRIVATE);
 
         mFilters=new Filters();
         configureToolBar();
@@ -96,21 +102,36 @@ public class NotificationsActivity extends AppCompatActivity {
 
     @OnCheckedChanged(R.id.activity_notifications_switch)
     void onNotificationSet(CompoundButton button, boolean checked) {
+
         if(checked){
             Log.i("TAG","Switch button is checked");
-            if(mFilters.getFilters().size()!=1){
+            if(mFilters.getSelectedValues().size()!=0 && !mEditText.getText().toString().equals("")){
+
                 Log.i("TAG"," filters: "+ Filters.mapToJsonString(mFilters.getFilters()));
-                // Save search data.
-                this.saveNotificationsFilter(Filters.mapToJsonString(mFilters.getFilters()));
+                Log.i("TAG","TEXT VALUE -> "+mEditText.getText().toString());
+               // mFilterMapValues.put("editText",mEditText.getText().toString());
+               // mFilterMapValues.put("selectedValue", Filters.mapToJsonString(mFilters.getSelectedValues()));
+
+                // Put in shared preferences
+
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
+                editor.putString("editText",mEditText.getText().toString());
+                editor.putString("selectedValue",Filters.mapToJsonString(mFilters.getSelectedValues()));
+                editor.apply();
                 scheduleAlarm();
+
+
+
             } else{
                 button.setChecked(false);
-                Toast.makeText(this, " One category must be set.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, " Search word and One category must be set.", Toast.LENGTH_LONG).show();
+                if(isNotificationSet)stopAlarm();
 
             }
         }
         else {
-            Log.i("TAG","Switch button is not set.");
+            removeNotificationSetting();
+            Log.i("TAG"," remove Value : "+mSharedPreferences.getString(NOTIFICATION_FILTER_KEY,""));
 
         }
 
@@ -126,7 +147,7 @@ public class NotificationsActivity extends AppCompatActivity {
         boolean checked = ((CheckBox) v).isChecked();
 
         // Check which checkbox was clicked
-        switch (v.getId()) {
+        switch(v.getId()) {
             case R.id.checkBox_arts:
                 if (checked)
                     // Put value on filters
@@ -172,18 +193,21 @@ public class NotificationsActivity extends AppCompatActivity {
                 break;
 
         }
+
     }
 
-    /**
-     * Save the search filter to the shared preferences.
-     * @param filter,
-     *        the filter to save. ( A String).
-     */
-    protected void saveNotificationsFilter(String filter){
+
+    protected void saveNotificationsFilter(){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(NOTIFICATION_FILTER_KEY,filter);
-        editor.putBoolean(NOTIFICATION_SETTING,isNotificationSet);
-        editor.commit();
+      //  editor.putString(NOTIFICATION_FILTER_KEY,filter);
+       // editor.putBoolean(NOTIFICATION_SETTING,isNotificationSet);
+
+
+    }
+    protected void removeNotificationSetting(){
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.clear();
+        editor.apply();
 
     }
 
@@ -207,17 +231,26 @@ public class NotificationsActivity extends AppCompatActivity {
             AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(this, NotificationAlarmReceiver.class);
 
-            PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
             // SetRepeating() lets you specify a precise custom interval--in this case, 2 minutes.
 
-            Long time = new GregorianCalendar().getTimeInMillis() + 2 * 60 * 1000;
+            long time = new GregorianCalendar().getTimeInMillis() + 2 * 60 * 1000;
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time,
-                    1000 * 60 * 2, alarmIntent);
+                    1000 * 60 * 2, mPendingIntent);
             Toast.makeText(this, "Alarm Scheduled for 2 min", Toast.LENGTH_LONG).show();
+            isNotificationSet=true;
 
+        }
+
+    /**
+     * Cancel the alarm.
+     */
+    private void stopAlarm(){
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            manager.cancel(mPendingIntent);
         }
 
     /**
@@ -246,9 +279,16 @@ public class NotificationsActivity extends AppCompatActivity {
 
         }
 
+    // This method to display a toast message.
+    private void callToast(String message){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                message,
+                Toast.LENGTH_SHORT);
 
-
-
+        toast.show();
     }
+
+
+}
 
 

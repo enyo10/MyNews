@@ -219,8 +219,6 @@ public class SearchActivity extends AppCompatActivity {
     public void sendRequest(View view){
 
         boolean searchWordsISSet=false;
-        boolean beginDateIsSet=false;
-        boolean endDateIsSet =false;
         boolean categoryIsSet=false;
         //
         if(mEditText.getText().toString().equals(""))
@@ -230,20 +228,6 @@ public class SearchActivity extends AppCompatActivity {
             searchWordsISSet=true;
         }
 
-       /* if(mBeginDate.getText().toString().equals(""))
-            callToast("Begin date must be set");
-        else{
-            mFilters.setBeginDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
-            beginDateIsSet=true;
-        }
-
-
-        if(mEndDate.getText().toString().equals(""))
-            callToast("End date must be set");
-        else{
-            mFilters.setEndDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
-            endDateIsSet=true;
-        }*/
 
         if(mFilters.getSelectedValues().size()==0)
             callToast("At least one category must be chosen");

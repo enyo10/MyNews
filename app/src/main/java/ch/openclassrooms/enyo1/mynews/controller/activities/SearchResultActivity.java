@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -189,14 +190,27 @@ public class SearchResultActivity extends AppCompatActivity {
         this.startActivity(myIntent);
     }
 
+    // This method to display a toast message.
+    private void callToast(String message){
+        Toast toast = Toast.makeText(getApplicationContext(),
+                message,
+                Toast.LENGTH_SHORT);
+
+        toast.show();
+    }
+
 
     // -------------------
     // UPDATE UI
     // -------------------
 
     protected void updateUI(ArrayList<NYTimesArticle> articles){
+        int arcticleSize=articles.size();
         this.mSwipeRefreshLayout.setRefreshing(false);
         this.mNYTimesArticles.clear();
+        if(arcticleSize==0)
+            callToast("No result fund.");
+
         this.mNYTimesArticles.addAll(articles);
         this.mAdapter.notifyDataSetChanged();
     }
