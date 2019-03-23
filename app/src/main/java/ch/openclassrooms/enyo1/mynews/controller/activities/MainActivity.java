@@ -169,6 +169,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_business:
                 mViewPager.setCurrentItem(FRAGMENT_BUSINESS);
                 break;
+            case R.id.activity_main_drawer_notifications:
+                callNotificationActivity();
+                break;
+            case R.id.activity_main_drawer_search:
+                callSearchActivity();
             default:
                 break;
         }
