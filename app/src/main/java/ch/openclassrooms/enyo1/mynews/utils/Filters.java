@@ -21,7 +21,8 @@ public class Filters implements Serializable {
 
     public Filters(){
         this.mSelectedCategory=new HashMap<>();
-        this.mFilters=new HashMap<>();
+        this.mFilters= new HashMap<>();
+
 
     }
 
@@ -103,13 +104,13 @@ public class Filters implements Serializable {
         // -- Results are sorted by newest to oldest
         mFilters.put("sort", "newest");
         // -- Query key words.
-        if (this.getKeyWords() !="") mFilters.put("q", getKeyWords());
+        if (!this.getKeyWords().equals("")) mFilters.put("q", getKeyWords());
         //-- Put selected category.
         if(this.mSelectedCategory.size()!=0) mFilters.put("fq", formatSelectedCategory());
         //-- Put the begin date.
-        if(this.getBeginDate()!="")  mFilters.put("begin_date",getBeginDate());
+        if(!this.getBeginDate().equals(""))  mFilters.put("begin_date",getBeginDate());
         //-- Put the begin date.
-        if(this.getEndDate()!="")mFilters.put("end_date",getEndDate());
+        if(!this.getEndDate().equals("")) mFilters.put("end_date",getEndDate());
 
         return mFilters;
     }
@@ -158,7 +159,6 @@ public class Filters implements Serializable {
         }
         return map;
     }
-
 
 
 }

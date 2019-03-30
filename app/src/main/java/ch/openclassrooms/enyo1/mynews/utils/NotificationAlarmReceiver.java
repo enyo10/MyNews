@@ -1,16 +1,10 @@
 package ch.openclassrooms.enyo1.mynews.utils;
 
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -19,11 +13,11 @@ import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.controller.activities.NotificationsActivity;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -40,27 +34,26 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         mContext=context;
         Log.i("Receiver","Received info");
-       SharedPreferences preferences= mContext.getSharedPreferences("key",Context.MODE_PRIVATE);
+       SharedPreferences preferences= mContext.getSharedPreferences(NotificationsActivity.SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
 
-       String searchWord =preferences.getString("editText","");
-       String mapString=preferences.getString("selectedValue","");
-       Log.i("TAG"," map string retrieve :"+mapString);
-       mFilters.setKeyWord(searchWord);
-       mFilters.setBeginDate(getDate());
-        try {
-            Map<String,String>m=Filters.jsonToMap(mapString);
-            mFilters.setSelectedValues(m);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+       String searchWord =preferences.getString(NotificationsActivity.SEARCH_TEXT_KEY,"");
+       String mapString=preferences.getString(NotificationsActivity.CHECKED_BOXES_KEY,"");
 
-        executeHttpRequestWithRetrofit();
+       if(!searchWord.equals("")&&mapString.equals("")) {
+           Log.i("TAG", " map string retrieve :" + mapString);
+           mFilters.setKeyWord(searchWord);
+           mFilters.setBeginDate(getDate());
 
-        /*if(getArticleNumber() > 0) {
-           // sentNotification("You have " + mArticleNumber + " new article to read.");
-            Log.i("TAG"," We have ......"+mArticleNumber +" new articles.");
+           try {
+               Map<String, String> m = Filters.jsonToMap(mapString);
+               mFilters.setSelectedValues(m);
+           } catch (JSONException e) {
+               e.printStackTrace();
+           }
 
-        }*/
+           executeHttpRequestWithRetrofit();
+       }
+
 
     }
 
@@ -135,10 +128,10 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
 
       }
 
-    public int getArticleNumber() {
+ /*   public int getArticleNumber() {
         return mArticleNumber;
     }
-
+*/
     public void setArticleNumber(int articleNumber) {
         mArticleNumber = articleNumber;
     }

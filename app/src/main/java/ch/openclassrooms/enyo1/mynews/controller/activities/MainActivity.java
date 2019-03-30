@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static String POSITION="POSITION";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
@@ -62,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         configureDrawerLayout();
         configureNavigationView();
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -107,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             default:return super.onOptionsItemSelected(item);
         }
-
 
     }
 

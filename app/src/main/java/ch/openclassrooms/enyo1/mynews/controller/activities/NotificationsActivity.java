@@ -1,13 +1,10 @@
 package ch.openclassrooms.enyo1.mynews.controller.activities;
 
 import android.app.AlarmManager;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,11 +20,8 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -36,14 +30,19 @@ import butterknife.OnCheckedChanged;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import ch.openclassrooms.enyo1.mynews.utils.NotificationAlarmReceiver;
+import icepick.Icepick;
+import icepick.State;
 
 public class NotificationsActivity extends AppCompatActivity {
+
+    private static final String TAG = NotificationsActivity.class.getSimpleName();
 
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.activity_notification_words_edit)
     EditText mEditText;
+
     @BindView(R.id.checkBox_arts)
     CheckBox mCheckBox_arts;
     @BindView(R.id.checkBox_business)
@@ -56,22 +55,25 @@ public class NotificationsActivity extends AppCompatActivity {
     CheckBox mCheckBox_travel;
     @BindView(R.id.checkBox_entrepreneurs)
     CheckBox mCheckBox_entrepreneurs;
+
     @BindView(R.id.activity_notifications_switch)
-    Switch mSwitch;
+    Switch mSwitchButton;
     // check current state of a Switch (true or false).
-  //  Boolean switchState = mSwitch.isChecked();
     private Filters mFilters;
+    private Map<String,String>mSelectedValues;
     private SharedPreferences mSharedPreferences;
+    public static final String SHARED_PREFERENCES_KEY="SHARED_PREFERENCES_KEY";
     public static final String NOTIFICATION_FILTER_KEY = NotificationsActivity.class.getName();
-    private static final String NOTIFICATION_SETTING="NOTIFICATION_BUTTON_SET";
+
+    public static final String SWITCH_BUTTON_STATE_KEY="SWITCH_BUTTON_STATE_KEY";
+    public static final String CHECKED_BOXES_KEY="CHECKED_BOX_KEY";
+    public static final String SEARCH_TEXT_KEY="SEARCH_TEXT_KEY";
+
     private boolean isNotificationSet=false;
     private PendingIntent mPendingIntent;
-    private List<View>mViewList=new ArrayList<>();
-    private Map<String,String>mFilterMapValues=new HashMap<>();
+    private String mSearchText;
 
-
-
-
+    private boolean isAlarmSet=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,21 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         ButterKnife.bind(this);
 
-        mSharedPreferences = getSharedPreferences("key",Context.MODE_PRIVATE);
 
         mFilters=new Filters();
+
+        mSharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
+        this.retrieveNotificationSetting();
+        Log.i(TAG, "switch button value in onCreate "+ mSwitchButton.isChecked());
+
         configureToolBar();
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this,outState);
 
     }
 
@@ -100,38 +113,31 @@ public class NotificationsActivity extends AppCompatActivity {
 
     }
 
+
     @OnCheckedChanged(R.id.activity_notifications_switch)
     void onNotificationSet(CompoundButton button, boolean checked) {
 
-        if(checked){
-            Log.i("TAG","Switch button is checked");
+
+         if(checked && !isNotificationSet){
+
+            Log.i("TAG","Switch button is checked ");
             if(mFilters.getSelectedValues().size()!=0 && !mEditText.getText().toString().equals("")){
 
-                Log.i("TAG"," filters: "+ Filters.mapToJsonString(mFilters.getFilters()));
-                Log.i("TAG","TEXT VALUE -> "+mEditText.getText().toString());
-               // mFilterMapValues.put("editText",mEditText.getText().toString());
-               // mFilterMapValues.put("selectedValue", Filters.mapToJsonString(mFilters.getSelectedValues()));
-
-                // Put in shared preferences
-
-                SharedPreferences.Editor editor = mSharedPreferences.edit();
-                editor.putString("editText",mEditText.getText().toString());
-                editor.putString("selectedValue",Filters.mapToJsonString(mFilters.getSelectedValues()));
-                editor.apply();
+                isNotificationSet=true;
+                // Start alarm && set notification to true.
                 scheduleAlarm();
-
-
 
             } else{
                 button.setChecked(false);
-                Toast.makeText(this, " Search word and One category must be set.", Toast.LENGTH_LONG).show();
-                if(isNotificationSet)stopAlarm();
-
+                isNotificationSet=false;
             }
         }
         else {
-            removeNotificationSetting();
-            Log.i("TAG"," remove Value : "+mSharedPreferences.getString(NOTIFICATION_FILTER_KEY,""));
+            if(!checked && isNotificationSet){
+                isNotificationSet=false;
+                if(isAlarmSet)
+                this.stopAlarm();
+            }
 
         }
 
@@ -197,29 +203,79 @@ public class NotificationsActivity extends AppCompatActivity {
     }
 
 
-    protected void saveNotificationsFilter(){
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-      //  editor.putString(NOTIFICATION_FILTER_KEY,filter);
-       // editor.putBoolean(NOTIFICATION_SETTING,isNotificationSet);
-
-
-    }
-    protected void removeNotificationSetting(){
+    protected void removeNotificationSettings(){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.clear();
         editor.apply();
 
     }
 
+    private void saveNotificationSettings(){
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(SWITCH_BUTTON_STATE_KEY,isNotificationSet);
+        editor.putString(SEARCH_TEXT_KEY,mEditText.getText().toString());
+        editor.putString(CHECKED_BOXES_KEY,Filters.mapToJsonString(mFilters.getSelectedValues()));
+        editor.apply();
+    }
+
+    private void retrieveNotificationSetting(){
+        Map<String,String> map=new HashMap<>();
+
+        isNotificationSet = mSharedPreferences.getBoolean(SWITCH_BUTTON_STATE_KEY,false);
+        mSwitchButton.setChecked(isNotificationSet);
+        Log.i(TAG, " In retrieve : "+ isNotificationSet);
+
+        Log.i(TAG,"actual state : notification setting -> " + mSwitchButton.isChecked());
+
+        mSearchText=mSharedPreferences.getString(SEARCH_TEXT_KEY,"");
+        mEditText.setText(mSearchText);
+
+        String selectedValues =mSharedPreferences.getString(CHECKED_BOXES_KEY,"");
+
+        try {
+            map=Filters.jsonToMap(selectedValues);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        mFilters.setSelectedValues(map);
+
+        if(mFilters.getSelectedValues().containsKey("Arts")){
+            mCheckBox_arts.setChecked(true);
+        }
+
+        if(mFilters.getSelectedValues().containsKey("Business"))
+            mCheckBox_business.setChecked(true);
+
+
+        if(mFilters.getSelectedValues().containsKey("Entrepreneurs"))
+            mCheckBox_entrepreneurs.setChecked(true);
+
+
+        if(mFilters.getSelectedValues().containsKey("Politics"))
+            mCheckBox_politics.setChecked(true);
+
+
+        if(mFilters.getSelectedValues().containsKey("Sports"))
+            mCheckBox_sports.setChecked(true);
+
+
+        if(mFilters.getSelectedValues().containsKey("Travel"))
+            mCheckBox_travel.setChecked(true);
+
+        Log.i(TAG," selected value "+mFilters.getSelectedValues());
+        Log.i(TAG," editTEXt "+mSearchText);
+    }
+
         /**
          * This class to schedule the alarm that will fire the notification.
          */
         public void scheduleAlarm() {
-            // set alarm to wakeup the device at 24 o'clock.
+            // set alarm to wakeup the device at 7 o'clock.
 
        /* Calendar calendar =Calendar.getInstance ();
         calendar.setTimeInMillis (System.currentTimeMillis ());
-        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.HOUR_OF_DAY,7);
         AlarmManager alarmManager=(AlarmManager) getSystemService (Context.ALARM_SERVICE);
         Intent i = new Intent(this, AlarmReceiver.class);
         PendingIntent   alarm_Intent = PendingIntent.getBroadcast(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -233,15 +289,15 @@ public class NotificationsActivity extends AppCompatActivity {
 
             mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-
             // SetRepeating() lets you specify a precise custom interval--in this case, 2 minutes.
 
             long time = new GregorianCalendar().getTimeInMillis() + 2 * 60 * 1000;
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time,
                     1000 * 60 * 2, mPendingIntent);
-            Toast.makeText(this, "Alarm Scheduled for 2 min", Toast.LENGTH_LONG).show();
-            isNotificationSet=true;
+            isAlarmSet=true;
+            callToast("Alarm Scheduled for 2 min");
+
 
         }
 
@@ -253,32 +309,6 @@ public class NotificationsActivity extends AppCompatActivity {
             manager.cancel(mPendingIntent);
         }
 
-    /**
-     * Get retrieve the saved data from shared preferences.
-     * @return Map<String,String>,
-     */
-    protected Map<String,String> getSearchSetting(){
-            Map<String,String>map=new HashMap<>();
-
-            String searchString =mSharedPreferences.getString(NOTIFICATION_FILTER_KEY,"");
-            if(searchString!=""){
-                try {
-                    map=Filters.jsonToMap(searchString);
-                   Log.i("TAG", " map"+ map.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            return map;
-        }
-        protected void setValues(Map<String,String>mapValues){
-            //String searchWord =mapValues.get();
-
-
-        }
-
     // This method to display a toast message.
     private void callToast(String message){
         Toast toast = Toast.makeText(getApplicationContext(),
@@ -288,6 +318,19 @@ public class NotificationsActivity extends AppCompatActivity {
         toast.show();
     }
 
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG," On Resume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        saveNotificationSettings();
+        Log.i(TAG,"On destroy");
+        super.onDestroy();
+    }
 
 }
 
