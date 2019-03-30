@@ -205,10 +205,10 @@ public class SearchResultActivity extends AppCompatActivity {
     // -------------------
 
     protected void updateUI(ArrayList<NYTimesArticle> articles){
-        int arcticleSize=articles.size();
+        int articleSize=articles.size();
         this.mSwipeRefreshLayout.setRefreshing(false);
         this.mNYTimesArticles.clear();
-        if(arcticleSize==0)
+        if(articleSize==0)
             callToast("No result fund.");
 
         this.mNYTimesArticles.addAll(articles);
@@ -236,8 +236,10 @@ public class SearchResultActivity extends AppCompatActivity {
             }
 
             // -- Affected section label ( section > subSection )
-            String section = docs.getNewsDesk();
-            if (docs.getSectionName() != null) section = section + " > " + docs.getSectionName();
+            //String section = docs.getNewsDesk();
+             String section= docs.getSectionName();
+
+            if (!docs.getNewsDesk().equals("")) section = section + " > " + docs.getNewsDesk();
             nyTimesArticle.setSection(section);
             
             nyTimesArticle.setDate(docs.getPubDate());

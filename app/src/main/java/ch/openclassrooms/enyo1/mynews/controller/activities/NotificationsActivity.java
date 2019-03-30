@@ -31,7 +31,6 @@ import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import ch.openclassrooms.enyo1.mynews.utils.NotificationAlarmReceiver;
 import icepick.Icepick;
-import icepick.State;
 
 public class NotificationsActivity extends AppCompatActivity {
 
@@ -73,7 +72,6 @@ public class NotificationsActivity extends AppCompatActivity {
     private PendingIntent mPendingIntent;
     private String mSearchText;
 
-    private boolean isAlarmSet=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +79,12 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         ButterKnife.bind(this);
 
+        configureAlarmManager();
 
         mFilters=new Filters();
 
         mSharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
         this.retrieveNotificationSetting();
-        Log.i(TAG, "switch button value in onCreate "+ mSwitchButton.isChecked());
 
         configureToolBar();
 
@@ -117,7 +115,6 @@ public class NotificationsActivity extends AppCompatActivity {
     @OnCheckedChanged(R.id.activity_notifications_switch)
     void onNotificationSet(CompoundButton button, boolean checked) {
 
-
          if(checked && !isNotificationSet){
 
             Log.i("TAG","Switch button is checked ");
@@ -135,7 +132,6 @@ public class NotificationsActivity extends AppCompatActivity {
         else {
             if(!checked && isNotificationSet){
                 isNotificationSet=false;
-                if(isAlarmSet)
                 this.stopAlarm();
             }
 
@@ -267,13 +263,20 @@ public class NotificationsActivity extends AppCompatActivity {
         Log.i(TAG," editTEXt "+mSearchText);
     }
 
-        /**
-         * This class to schedule the alarm that will fire the notification.
-         */
-        public void scheduleAlarm() {
-            // set alarm to wakeup the device at 7 o'clock.
+    /**
+     * Configure the alarm manager.
+     */
+    private void configureAlarmManager(){
+        Intent intent = new Intent(this, NotificationAlarmReceiver.class);
+        mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
 
-       /* Calendar calendar =Calendar.getInstance ();
+    /**
+     * This class to schedule the alarm that will fire the notification.
+     */
+    public void scheduleAlarm() {
+            // set alarm to wakeup the device at 7 o'clock.
+        /* Calendar calendar =Calendar.getInstance ();
         calendar.setTimeInMillis (System.currentTimeMillis ());
         calendar.set(Calendar.HOUR_OF_DAY,7);
         AlarmManager alarmManager=(AlarmManager) getSystemService (Context.ALARM_SERVICE);
@@ -285,9 +288,6 @@ public class NotificationsActivity extends AppCompatActivity {
        */
 
             AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Intent intent = new Intent(this, NotificationAlarmReceiver.class);
-
-            mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             // SetRepeating() lets you specify a precise custom interval--in this case, 2 minutes.
 
@@ -295,7 +295,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time,
                     1000 * 60 * 2, mPendingIntent);
-            isAlarmSet=true;
+
             callToast("Alarm Scheduled for 2 min");
 
 

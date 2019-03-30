@@ -228,12 +228,10 @@ public class SearchActivity extends AppCompatActivity {
             searchWordsISSet=true;
         }
 
-
         if(mFilters.getSelectedValues().size()==0)
             callToast("At least one category must be chosen");
         else
             categoryIsSet=true;
-
 
         if(searchWordsISSet  &categoryIsSet){
             Log.i("TAG","OK");
