@@ -70,6 +70,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
     private boolean isNotificationSet=false;
     private PendingIntent mPendingIntent;
+    private Intent mIntent;
     private String mSearchText;
 
 
@@ -121,6 +122,9 @@ public class NotificationsActivity extends AppCompatActivity {
             if(mFilters.getSelectedValues().size()!=0 && !mEditText.getText().toString().equals("")){
 
                 isNotificationSet=true;
+
+                mIntent.putExtra(SEARCH_TEXT_KEY,mEditText.getText().toString());
+                mIntent.putExtra(CHECKED_BOXES_KEY,Filters.mapToJsonString(mFilters.getSelectedValues()));
                 // Start alarm && set notification to true.
                 scheduleAlarm();
 
@@ -267,8 +271,8 @@ public class NotificationsActivity extends AppCompatActivity {
      * Configure the alarm manager.
      */
     private void configureAlarmManager(){
-        Intent intent = new Intent(this, NotificationAlarmReceiver.class);
-        mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mIntent = new Intent(this, NotificationAlarmReceiver.class);
+        mPendingIntent = PendingIntent.getBroadcast(this, 0,mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /**

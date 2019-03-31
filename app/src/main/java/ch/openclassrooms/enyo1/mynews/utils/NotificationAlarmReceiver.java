@@ -1,6 +1,5 @@
 package ch.openclassrooms.enyo1.mynews.utils;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +24,8 @@ import io.reactivex.observers.DisposableObserver;
 
 public class NotificationAlarmReceiver extends BroadcastReceiver {
 
+    private static final String TAG= NotificationsActivity.class.getSimpleName();
+
     private Context mContext;
     private int mArticleNumber;
     private Filters mFilters=new Filters();
@@ -32,21 +33,26 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
         mContext=context;
-        Log.i("Receiver","Received info");
+        Log.i(TAG,"Received info");
        SharedPreferences preferences= mContext.getSharedPreferences(NotificationsActivity.SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
 
-       String searchWord =preferences.getString(NotificationsActivity.SEARCH_TEXT_KEY,"");
-       String mapString=preferences.getString(NotificationsActivity.CHECKED_BOXES_KEY,"");
+       String searchWord = preferences.getString(NotificationsActivity.SEARCH_TEXT_KEY,null);
+       //String searchWord = intent.getStringExtra(NotificationsActivity.SEARCH_TEXT_KEY);
+       Log.i(TAG,"Search Word  "+ searchWord);
+       String mapString =  preferences.getString(NotificationsActivity.CHECKED_BOXES_KEY,null);
 
-       if(!searchWord.equals("")&&mapString.equals("")) {
-           Log.i("TAG", " map string retrieve :" + mapString);
+       Log.i(TAG," map string "+ mapString);
+
+       if(searchWord !=null&& mapString !=null) {
+           Log.i(TAG, " map string retrieve :" + mapString);
            mFilters.setKeyWord(searchWord);
            mFilters.setBeginDate(getDate());
 
            try {
-               Map<String, String> m = Filters.jsonToMap(mapString);
-               mFilters.setSelectedValues(m);
+               Map<String, String> map = Filters.jsonToMap(mapString);
+               mFilters.setSelectedValues(map);
            } catch (JSONException e) {
                e.printStackTrace();
            }
@@ -61,7 +67,7 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
     // Retrofit request.
     protected void executeHttpRequestWithRetrofit() {
         String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
-        Log.i("TAG"," Filter map "+mFilters.getFilters());
+        Log.i("TAG"," Filter map " +mFilters.getFilters());
 
 
         Disposable disposable= NYTimesStream.streamFetchArticlesSearch(key,mFilters.getFilters())
@@ -69,11 +75,11 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
                     @Override
                     public void onNext(ArticleSearch nytArticles) {
 
-                        Log.i("TAG","Article search Downloading...");
+                        Log.i(TAG,"Article search Downloading...");
                         setArticleNumber(nytArticles.getResponse().getDocs().size());
 
 
-                        Log.i("TAG","Article search in Notification result size : "+mArticleNumber);
+                        Log.i(TAG,"Article search in Notification result size : "+mArticleNumber);
 
 
                     }
