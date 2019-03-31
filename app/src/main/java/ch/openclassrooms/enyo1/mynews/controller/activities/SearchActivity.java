@@ -30,6 +30,7 @@ import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
 
 public class SearchActivity extends AppCompatActivity {
+    private static final String TAG=SearchActivity.class.getSimpleName();
 
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -217,6 +218,10 @@ public class SearchActivity extends AppCompatActivity {
      */
     @OnClick(R.id.activity_search_button)
     public void sendRequest(View view){
+        mFilters.setBeginDate(DateFormatter.dateFormatYYYYMMJJ(mBeginDate.getText().toString()));
+        mFilters.setEndDate(DateFormatter.dateFormatYYYYMMJJ(mEndDate.getText().toString()));
+
+        Log.i(TAG,DateFormatter.dateFormatYYYYMMJJ(mEndDate.getText().toString()));
 
         boolean searchWordsISSet=false;
         boolean categoryIsSet=false;
@@ -234,10 +239,10 @@ public class SearchActivity extends AppCompatActivity {
             categoryIsSet=true;
 
         if(searchWordsISSet  &categoryIsSet){
-            Log.i("TAG","OK");
+            Log.i(TAG,"OK");
            // JSONObject jsonObject =new JSONObject(mFilters.getFilters());
            String stringMap= Filters.mapToJsonString(mFilters.getFilters());
-            Log.i("TAG"," JSon : " +stringMap);
+            Log.i(TAG," JSon : " +stringMap);
 
             Intent resultSearch = new Intent(SearchActivity.this,SearchResultActivity.class);
            resultSearch.putExtra(BUNDLE_SEARCH_FILTER,stringMap);

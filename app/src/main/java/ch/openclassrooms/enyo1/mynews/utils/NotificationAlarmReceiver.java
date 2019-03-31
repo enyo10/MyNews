@@ -49,6 +49,7 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
            Log.i(TAG, " map string retrieve :" + mapString);
            mFilters.setKeyWord(searchWord);
            mFilters.setBeginDate(getDate());
+           Log.i(TAG," filter" +mFilters.getFilters());
 
            try {
                Map<String, String> map = Filters.jsonToMap(mapString);
@@ -67,8 +68,7 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
     // Retrofit request.
     protected void executeHttpRequestWithRetrofit() {
         String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
-        Log.i("TAG"," Filter map " +mFilters.getFilters());
-
+        Log.i(TAG," Filter map " +mFilters.getFilters());
 
         Disposable disposable= NYTimesStream.streamFetchArticlesSearch(key,mFilters.getFilters())
                 .subscribeWith(new DisposableObserver<ArticleSearch>() {
@@ -134,10 +134,7 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
 
       }
 
- /*   public int getArticleNumber() {
-        return mArticleNumber;
-    }
-*/
+
     public void setArticleNumber(int articleNumber) {
         mArticleNumber = articleNumber;
     }

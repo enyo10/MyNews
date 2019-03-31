@@ -62,14 +62,6 @@ public class Filters implements Serializable {
         mEndDate = endDate;
     }
 
-    public void addBeginDate(String beginDate) {
-        mBeginDate = beginDate;
-    }
-
-
-    public void addEndDate(String endDate) {
-        mEndDate = endDate;
-    }
 
     public void setFilters(Map<String, String> filters) {
         mFilters = filters;

@@ -42,6 +42,7 @@ import static ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment.B
 
 
 public class SearchResultActivity extends AppCompatActivity {
+    private static final String TAG=SearchActivity.class.getSimpleName();
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.activity_search_result_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
@@ -67,7 +68,7 @@ public class SearchResultActivity extends AppCompatActivity {
         String jsonString =intent.getStringExtra(SearchActivity.BUNDLE_SEARCH_FILTER);
         try {
             mFilterMap = Filters.jsonToMap(jsonString);
-            Log.i("TAG","JsonMap: "+mFilterMap.toString());
+            Log.i(TAG,"JsonMap: "+mFilterMap.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -145,6 +146,7 @@ public class SearchResultActivity extends AppCompatActivity {
                 .subscribeWith(new DisposableObserver<ArticleSearch>() {
                     @Override
                     public void onNext(ArticleSearch nytArticles) {
+                        Log.i(TAG, "filter to execute "+ mFilterMap.toString());
 
                         Log.i("TAG","Article search Downloading...");
                         Log.i("TAG","Article search result size : " +nytArticles.getResponse().getDocs().size());

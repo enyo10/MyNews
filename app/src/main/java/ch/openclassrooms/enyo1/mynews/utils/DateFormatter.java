@@ -11,7 +11,7 @@ public class DateFormatter {
      */
 
     public static String formatDate(String date){
-                                                    // 2019-05-56
+                                                    // 2019-05-16
         String DD = date.substring(8,10);            // Day
         String MM = date.substring(5,7);            // Month
         String YY = date.substring(2,4);            // Year
@@ -22,8 +22,8 @@ public class DateFormatter {
 
     /**
      *
-     * @param date
-     * @return
+     * @param date, a date on format DD/MM/YYYY, to transform.
+     * @return date, on format yyyyMMdd.
      */
     public static String dateFormatYYYYMMJJ(String date){
         //03/03/2019
