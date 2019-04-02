@@ -59,10 +59,8 @@ public class NotificationsActivity extends AppCompatActivity {
     Switch mSwitchButton;
     // check current state of a Switch (true or false).
     private Filters mFilters;
-    private Map<String,String>mSelectedValues;
     private SharedPreferences mSharedPreferences;
     public static final String SHARED_PREFERENCES_KEY="SHARED_PREFERENCES_KEY";
-    public static final String NOTIFICATION_FILTER_KEY = NotificationsActivity.class.getName();
 
     public static final String SWITCH_BUTTON_STATE_KEY="SWITCH_BUTTON_STATE_KEY";
     public static final String CHECKED_BOXES_KEY="CHECKED_BOX_KEY";
