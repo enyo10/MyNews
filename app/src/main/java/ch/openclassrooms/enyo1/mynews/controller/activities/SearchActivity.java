@@ -2,6 +2,7 @@ package ch.openclassrooms.enyo1.mynews.controller.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -196,6 +197,15 @@ public class SearchActivity extends AppCompatActivity {
             }
 
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        mBeginDatePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    Log.i(TAG," Date is cancel ");
+
+                    mBeginDate.setText("");
+                }
+            }
+        });
     }
 
     // Manage EndDate Field
@@ -203,9 +213,10 @@ public class SearchActivity extends AppCompatActivity {
     private void setEndDateField() {
         // Create a DatePickerDialog and manage it
         mEndDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
+                newDate.set(year, month, dayOfMonth);
 
                 // Display date selected
                 mEndDate.setText(displayDateFormatter.format(newDate.getTime()));
@@ -213,7 +224,18 @@ public class SearchActivity extends AppCompatActivity {
 
             }
 
+
         },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        mEndDatePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == DialogInterface.BUTTON_NEGATIVE) {
+                    Log.i(TAG," Date is cancel ");
+
+                    mEndDate.setText("");
+                }
+            }
+        });
     }
 
     // This method to display a toast message.
@@ -299,6 +321,7 @@ public class SearchActivity extends AppCompatActivity {
         mEndDate.setText(endDate);
 
         String selectedValues = mSharedPreferences.getString(CHECKED_BOXES_KEY,"");
+        if(!selectedValues.equals(""))
 
         try {
             map=Filters.jsonToMap(selectedValues);

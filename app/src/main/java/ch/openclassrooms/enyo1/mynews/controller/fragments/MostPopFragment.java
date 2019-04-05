@@ -23,6 +23,7 @@ import io.reactivex.observers.DisposableObserver;
  * A simple {@link Fragment} subclass.
  */
 public class MostPopFragment extends BaseFragment {
+    private static final String TAG=MostPopularArticle.class.getSimpleName();
 
 
     @Override
@@ -98,7 +99,7 @@ public class MostPopFragment extends BaseFragment {
                 .subscribeWith(new DisposableObserver<MostPopularArticle>() {
                     @Override
                     public void onNext(MostPopularArticle mostPopularArticle) {
-                        Log.i("TAG","Downloading Most pop article");
+                        Log.i(TAG,"Downloading Most pop article");
 
                         ArrayList<NYTimesArticle>articles=convertToArticlesList(mostPopularArticle);
                         updateUI(articles);
@@ -107,13 +108,13 @@ public class MostPopFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("TAG"," Most pop article : Error - > "+Log.getStackTraceString(e));
+                        Log.i(TAG," Most pop article : Error - > "+Log.getStackTraceString(e));
 
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.i("TAG","Most Pop  article downloaded");
+                        Log.i(TAG,"Most Pop  article downloaded");
 
                     }
                 });

@@ -60,7 +60,7 @@ public class Result {
     @SerializedName("updated")
     @Expose
     private String updated;
-    @SerializedName("des_facet")
+    //@SerializedName("des_facet")
   //  @Expose
     //private List<String> desFacet = null;
    // @SerializedName("org_facet")
