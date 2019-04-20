@@ -46,12 +46,10 @@ public class ArticleContentActivity extends AppCompatActivity {
     }
 
     private void configureToolbar(){
-        Log.d(TAG, "configureToolbar: ");
         //Set the toolbar
         setSupportActionBar(mToolbar);
 
         // Get a support ActionBar corresponding to this toolbar
-
         ActionBar actionBar = getSupportActionBar();
         // Enable the Up button
         actionBar.setDisplayHomeAsUpEnabled(true);

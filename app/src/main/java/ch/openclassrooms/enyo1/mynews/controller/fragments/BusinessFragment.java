@@ -109,9 +109,4 @@ public class BusinessFragment extends BaseFragment {
                 });
     }
 
-
-    @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
-        return null;
-    }
 }

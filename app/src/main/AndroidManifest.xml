@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.activities.SearchCategoriesActivity"></activity>
+        <activity android:name=".controller.activities.BaseActivity"></activity>
+        <activity android:name=".controller.activities.SearchCategoriesActivity" />
         <activity
             android:name=".controller.activities.SearchResultActivity"
             android:parentActivityName=".controller.activities.SearchActivity" />
@@ -31,7 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Register the Alarm Receiver -->
-        <receiver android:name=".utils.NotificationAlarmReceiver"></receiver>
+        <receiver android:name=".utils.NotificationAlarmReceiver" />
     </application>
 
 </manifest>

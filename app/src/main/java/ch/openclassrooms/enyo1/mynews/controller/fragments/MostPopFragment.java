@@ -1,13 +1,9 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
 
 
@@ -22,7 +18,7 @@ import io.reactivex.observers.DisposableObserver;
  * A simple {@link Fragment} subclass.
  */
 public class MostPopFragment extends BaseFragment {
-    private static final String TAG=MostPopularArticle.class.getSimpleName();
+    private static final String TAG = MostPopularArticle.class.getSimpleName();
 
 
 
@@ -47,7 +43,6 @@ public class MostPopFragment extends BaseFragment {
         mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
 
     }
-
 
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data)
@@ -109,12 +104,6 @@ public class MostPopFragment extends BaseFragment {
 
                     }
                 });
-
     }
 
-
-    @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
-        return null;
-    }
 }

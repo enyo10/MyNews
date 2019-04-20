@@ -250,16 +250,12 @@ public class SearchResultActivity extends AppCompatActivity {
             // -- Affected Title
             nyTimesArticle.setTitle(docs.getSnippet());
 
-
             // Add news at Lit
             list.add(nyTimesArticle);
         }
 
     return list;
 
-        // Sort the newsList by createdDate in Descending
-        //Collections.sort(listNYTimesNews, new NYTimesNews());
-       // Collections.reverse(listNYTimesNews);
     }
 
     private void disposeWhenDestroy() {

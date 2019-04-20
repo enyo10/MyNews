@@ -1,26 +1,16 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
-import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
-import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
 /**
@@ -118,12 +108,5 @@ public class TopStoriesFragment extends BaseFragment {
                 });
 
     }
-
-    @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle saveInstanceState) {
-        SwipeRefreshLayout swipeRefreshLayout =(SwipeRefreshLayout)inflater.inflate(getFragmentLayout(),parent,false);
-        return swipeRefreshLayout;
-    }
-
 
 }

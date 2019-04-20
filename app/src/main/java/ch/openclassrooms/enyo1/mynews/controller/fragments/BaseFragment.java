@@ -1,6 +1,5 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +30,7 @@ import icepick.State;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
-    public static final String TAG = BaseFragment.class.getSimpleName();
+    public static final String TAG = BusinessFragment.class.getSimpleName();
 
 
     @State
@@ -193,16 +192,6 @@ public abstract class BaseFragment extends Fragment {
      * This method will execute the http request with retrofit.
      */
     protected abstract void executeHttpRequestWithRetrofit();
-
-
-    /**
-     * This method to provide a view to our fragment.
-     * @param inflater
-     * @param parent
-     * @param saveInstanceState
-     * @return
-     */
-    public abstract View provideFragmentView(LayoutInflater inflater,ViewGroup parent,Bundle saveInstanceState);
 
 
 }

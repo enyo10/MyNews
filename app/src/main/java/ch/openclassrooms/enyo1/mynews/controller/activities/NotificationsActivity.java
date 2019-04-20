@@ -5,16 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-//import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -26,40 +19,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import ch.openclassrooms.enyo1.mynews.utils.NotificationAlarmReceiver;
-import icepick.Icepick;
 
-public class NotificationsActivity extends AppCompatActivity {
+
+public class NotificationsActivity extends BaseActivity {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
 
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.activity_notification_words_edit)
-    EditText mEditText;
-
-    @BindView(R.id.checkBox_arts)
-    CheckBox mCheckBox_arts;
-    @BindView(R.id.checkBox_business)
-    CheckBox mCheckBox_business;
-    @BindView(R.id.checkBox_politics)
-    CheckBox mCheckBox_politics;
-    @BindView(R.id.checkBox_sports)
-    CheckBox mCheckBox_sports;
-    @BindView(R.id.checkBox_travel)
-    CheckBox mCheckBox_travel;
-    @BindView(R.id.checkBox_entrepreneurs)
-    CheckBox mCheckBox_entrepreneurs;
-
     @BindView(R.id.activity_notifications_switch)
     Switch mSwitchButton;
-    // check current state of a Switch (true or false).
-    private Filters mFilters;
+
+
     private SharedPreferences mSharedPreferences;
     public static final String SHARED_PREFERENCES_KEY="SHARED_PREFERENCES_KEY";
 
@@ -70,30 +44,20 @@ public class NotificationsActivity extends AppCompatActivity {
     private boolean isNotificationSet=false;
     private PendingIntent mPendingIntent;
     private Intent mIntent;
-    private String mSearchText;
+   // private String mSearchText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
-        ButterKnife.bind(this);
+
 
         configureAlarmManager();
-
-        mFilters=new Filters();
 
         mSharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
         this.retrieveNotificationSetting();
 
-        configureToolBar();
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Icepick.saveInstanceState(this,outState);
+       configureToolBar();
 
     }
 
@@ -101,13 +65,9 @@ public class NotificationsActivity extends AppCompatActivity {
      * This method to configure the toolbar.
      */
     public void configureToolBar(){
-
         mToolbar.setTitle("Notifications");
-        setSupportActionBar(mToolbar);
+        super.configureToolBar();
 
-        ActionBar actionBar = getSupportActionBar();
-        // Enable the Up button
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -117,7 +77,7 @@ public class NotificationsActivity extends AppCompatActivity {
 
          if(checked && !isNotificationSet){
 
-            Log.i("TAG","Switch button is checked ");
+            Log.i(TAG," filter size " +mFilters.getSelectedValues().size());
             if(mFilters.getSelectedValues().size()!=0 && !mEditText.getText().toString().equals("")){
 
                 isNotificationSet=true;
@@ -130,6 +90,12 @@ public class NotificationsActivity extends AppCompatActivity {
             } else{
                 button.setChecked(false);
                 isNotificationSet=false;
+
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        " No search Work or check box is selected.",
+                        Toast.LENGTH_SHORT);
+
+                toast.show();
             }
         }
         else {
@@ -137,65 +103,6 @@ public class NotificationsActivity extends AppCompatActivity {
                 isNotificationSet=false;
                 this.stopAlarm();
             }
-
-        }
-
-    }
-
-    /**
-     * Add selected category to the filter map.
-     * @param v,
-     *       the view selected.
-     */
-    public void onCheckBoxClicked(View v) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) v).isChecked();
-
-        // Check which checkbox was clicked
-        switch(v.getId()) {
-            case R.id.checkBox_arts:
-                if (checked)
-                    // Put value on filters
-                    mFilters.addSelectedCategory("Arts");
-                else
-                    // Remove the remove the value
-                    mFilters.removeSelectedCategory("Arts");
-                break;
-            case R.id.checkBox_business:
-                if (checked)
-                    mFilters.addSelectedCategory("Business");
-                else
-                    mFilters.removeSelectedCategory("Business");
-                break;
-            case R.id.checkBox_entrepreneurs:
-                if (checked)
-                    // Put value on filters
-                    mFilters.addSelectedCategory("Entrepreneurs");
-                else
-                    // Remove the remove the value
-                    mFilters.removeSelectedCategory("Entrepreneurs");
-                break;
-            case R.id.checkBox_politics:
-                if (checked)
-                    mFilters.addSelectedCategory("Politics");
-                else
-                    mFilters.removeSelectedCategory("Politics");
-                break;
-
-            case R.id.checkBox_sports:
-                if (checked)
-                    // Put value on filters
-                    mFilters.addSelectedCategory("Sport");
-                else
-                    // Remove the remove the value
-                    mFilters.removeSelectedCategory("Sport");
-                break;
-            case R.id.checkBox_travel:
-                if (checked)
-                    mFilters.addSelectedCategory("Travel");
-                else
-                    mFilters.removeSelectedCategory("Travel");
-                break;
 
         }
 
@@ -217,8 +124,10 @@ public class NotificationsActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
     private void retrieveNotificationSetting(){
         Map<String,String> map=new HashMap<>();
+        String mSearchText;
 
         isNotificationSet = mSharedPreferences.getBoolean(SWITCH_BUTTON_STATE_KEY,false);
         mSwitchButton.setChecked(isNotificationSet);
@@ -237,7 +146,7 @@ public class NotificationsActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        mFilters.setSelectedValues(map);
+         mFilters.setSelectedValues(map);
 
         if(mFilters.getSelectedValues().containsKey("Arts")){
             mCheckBox_arts.setChecked(true);
@@ -335,6 +244,11 @@ public class NotificationsActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+
+    @Override
+    public int getActivityLayout() {
+        return R.layout.activity_notifications;
+    }
 }
 
 
