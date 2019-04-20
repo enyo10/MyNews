@@ -44,16 +44,12 @@ public class BusinessFragment extends BaseFragment {
         //return 0;
     }
 
-
     @Override
     protected void configureDesign(View v) {
         mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
         mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
 
     }
-
-
-
 
 
     @Override
@@ -93,7 +89,9 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        this.mDisposable=NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","business")
+        String api_key= getResources().getString(R.string.api_key);
+
+        this.mDisposable=NYTimesStream.streamFetchTopStories(api_key,"business")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories business) {
@@ -111,39 +109,6 @@ public class BusinessFragment extends BaseFragment {
                     }
                 });
     }
-
-
-    /*  @Override
-    protected void executeHttpRequestWithRetrofit() {
-        this.mDisposable= NYTimesStream.streamFetchBusinessArticles("Business","UqsVUuAGooyAyaJPZrwM45HG454PT72r")
-                .subscribeWith(new DisposableObserver<ArticleSearch>() {
-                    @Override
-                    public void onNext(ArticleSearch articleSearch) {
-                        Log.i("TAG"," Business article Downloading ...");
-                        Log.i("TAG"," Doc size -->"+  articleSearch.getResponse().getDocs().size());
-                        ArrayList<NYTimesArticle>articles=convertToArticlesList(articleSearch);
-
-                        Log.i("TAG"," conversion success : article size "+articles.size());
-
-                        updateUI(articles);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("TAG","OOOps, aie aie "+Log.getStackTraceString(e));
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-    }*/
-
-
 
 
     @Override

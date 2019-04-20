@@ -27,6 +27,8 @@ import io.reactivex.observers.DisposableObserver;
  * A simple {@link Fragment} subclass.
  */
 public class TopStoriesFragment extends BaseFragment {
+    private static final String TAG = TopStoriesFragment.class.getSimpleName();
+
 
 
     @Override
@@ -50,8 +52,8 @@ public class TopStoriesFragment extends BaseFragment {
 
     @Override
     protected void configureDesign(View v) {
-        mSwipeRefreshLayout =v.findViewById(R.id.fragment_swipe_container);
-        mRecyclerView =v.findViewById(R.id.fragment_recycler_view);
+        mSwipeRefreshLayout = v.findViewById(R.id.fragment_swipe_container);
+        mRecyclerView = v.findViewById(R.id.fragment_recycler_view);
 
     }
 
@@ -94,13 +96,14 @@ public class TopStoriesFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
+        String api_key= getResources().getString(R.string.api_key);
 
-        this.mDisposable = NYTimesStream.streamFetchTopStories("UqsVUuAGooyAyaJPZrwM45HG454PT72r","home")
+        this.mDisposable = NYTimesStream.streamFetchTopStories(api_key,"home")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories topStories) {
                         // 6 - Update RecyclerView after getting results from Github API
-                        Log.i("TAG"," Top stories Download...");
+                        Log.i(TAG," Top stories Download...");
                         ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
                         updateUI(articles);
                         Log.i("TAG","Number of top stories "+  topStories.getNumResults());
@@ -108,11 +111,11 @@ public class TopStoriesFragment extends BaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("TAG","OOOps, aie aie "+Log.getStackTraceString(e));
+                        Log.e(TAG,"OOOps, aie aie "+Log.getStackTraceString(e));
                     }
                     @Override
                     public void onComplete() {
-                        Log.i("TAG","Downloaded");
+                        Log.i(TAG,"Downloaded");
                     }
                 });
 

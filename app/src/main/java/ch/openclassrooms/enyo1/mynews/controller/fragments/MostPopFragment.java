@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.mostPopular.MostPopularArticle;
 import ch.openclassrooms.enyo1.mynews.models.mostPopular.Result;
-import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import io.reactivex.observers.DisposableObserver;
@@ -24,6 +23,7 @@ import io.reactivex.observers.DisposableObserver;
  */
 public class MostPopFragment extends BaseFragment {
     private static final String TAG=MostPopularArticle.class.getSimpleName();
+
 
 
     @Override
@@ -95,7 +95,9 @@ public class MostPopFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        this.mDisposable =NYTimesStream.streamFetchMostPopArticles("UqsVUuAGooyAyaJPZrwM45HG454PT72r")
+        String api_key= getResources().getString(R.string.api_key);
+
+        this.mDisposable =NYTimesStream.streamFetchMostPopArticles(api_key)
                 .subscribeWith(new DisposableObserver<MostPopularArticle>() {
                     @Override
                     public void onNext(MostPopularArticle mostPopularArticle) {

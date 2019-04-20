@@ -67,7 +67,6 @@ allprojects {
         jcenter()
         maven { url "https://clojars.org/repo/" }
 
-
     }
 }
 

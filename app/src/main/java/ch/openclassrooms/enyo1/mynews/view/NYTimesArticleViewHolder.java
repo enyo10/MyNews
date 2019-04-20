@@ -9,17 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.request.RequestOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
-import ch.openclassrooms.enyo1.mynews.models.articleSearch.Multimedium;
-import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
 public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
+    private static final String TAG=NYTimesArticleViewHolder.class.getSimpleName();
 
     @BindView(R.id.fragment_item_title)
     TextView mTitle_textView;
@@ -28,7 +26,7 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.fragment_item_date)TextView mDate_textView;
     @BindView(R.id.fragment_item_section)TextView mSection_textView;
 
-    public NYTimesArticleViewHolder(@NonNull View itemView) {
+    public  NYTimesArticleViewHolder(@NonNull View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
@@ -40,6 +38,8 @@ public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
         mDate_textView.setText(DateFormatter.formatDate(article.getDate()));
         mSection_textView.setText(article.getSection());
         glide.load(article.getImageURL()).into(mImageView);
+
+        Log.i(TAG, " Article list update success");
 
 
     }

@@ -31,8 +31,9 @@ import icepick.State;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
+    private static final String TAG = BaseFragment.class.getSimpleName();
 
-//    protected  String api_key= getResources().getString(R.string.api_key);
+
     @State
     String title;
 
@@ -43,18 +44,13 @@ public abstract class BaseFragment extends Fragment {
 
     // FOR DESIGN
     // SwipeRefreshLayout and RecyclerView declaration.
-
     @BindView(R.id.fragment_swipe_container) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.fragment_recycler_view) RecyclerView mRecyclerView;
-
-    View mView;
 
     /**
      * A constructor without argument.
      */
     public BaseFragment(){
-
-
 
     }
 
@@ -64,7 +60,6 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Get layout identifier from abstract method
         View view = inflater.inflate(getFragmentLayout(), container, false);
-     // View  view = inflater.inflate(R.layout.fragment_base_layout, container, false);
         ButterKnife.bind(this,view);
 
         configureDesign(view);
@@ -79,7 +74,7 @@ public abstract class BaseFragment extends Fragment {
 
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
@@ -131,7 +126,7 @@ public abstract class BaseFragment extends Fragment {
 
 
     /**
-     * This method launch the ArticleContentActivity that is a web view that show the content
+     * This method launch the ArticleContentActivity that is a web view and show the content
      * of an article.
      * @param url,
      *       the url of the article content.

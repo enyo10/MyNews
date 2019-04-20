@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,12 +75,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    //****************************************************************************
+    //                  MENU CONFIGURATION
+    //****************************************************************************
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu and add it to the Toolbar
         getMenuInflater().inflate(R.menu.menu_activity_main, menu);
         return true;
     }
+
 
 
     @Override
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    // 2 - Configure Drawer Layout
+    //  - Configure Drawer Layout
     private void configureDrawerLayout(){
        // mDrawerLayout = findViewById(R.id.activity_main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -134,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ((MyPagerAdapter) adapterViewPager).addFragment(new TopStoriesFragment(),"TOP STORIES");
         ((MyPagerAdapter) adapterViewPager).addFragment(new MostPopFragment(),"MOST POPULAR");
         ((MyPagerAdapter) adapterViewPager).addFragment(new BusinessFragment(),"BUSINESS");
+
         mViewPager.setAdapter(adapterViewPager);
 
         //Glue TabLayout and ViewPager together
@@ -207,10 +212,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(notificationActivity);
     }
 
-
+    /**
+     * This method create a notification channel.
+     */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
+        // the NotificationChannel class is  not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //CharSequence name = getString(R.string.channel_name);
             //String description = getString(R.string.channel_description);

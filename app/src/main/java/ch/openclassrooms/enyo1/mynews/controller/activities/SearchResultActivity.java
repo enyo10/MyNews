@@ -140,7 +140,8 @@ public class SearchResultActivity extends AppCompatActivity {
 
     // Retrofit request.
     protected void executeHttpRequestWithRetrofit() {
-        String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
+       // String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
+        String key=getString(R.string.api_key);
 
         this.mDisposable= NYTimesStream.streamFetchArticlesSearch(key,mFilterMap)
                 .subscribeWith(new DisposableObserver<ArticleSearch>() {
