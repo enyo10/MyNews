@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,7 +30,8 @@ public class NotificationsActivity extends BaseActivity {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
 
-
+    @BindView(R.id.activity_notification_words_edit)
+    EditText mEditText;
     @BindView(R.id.activity_notifications_switch)
     Switch mSwitchButton;
 
@@ -51,7 +53,6 @@ public class NotificationsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         configureAlarmManager();
 
         mSharedPreferences = getSharedPreferences(SHARED_PREFERENCES_KEY,Context.MODE_PRIVATE);
@@ -61,13 +62,10 @@ public class NotificationsActivity extends BaseActivity {
 
     }
 
-    /**
-     * This method to configure the toolbar.
-     */
+   @Override
     public void configureToolBar(){
         mToolbar.setTitle("Notifications");
         super.configureToolBar();
-
 
     }
 
@@ -107,7 +105,6 @@ public class NotificationsActivity extends BaseActivity {
         }
 
     }
-
 
     protected void removeNotificationSettings(){
         SharedPreferences.Editor editor = mSharedPreferences.edit();

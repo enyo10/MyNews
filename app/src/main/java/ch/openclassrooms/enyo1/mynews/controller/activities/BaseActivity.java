@@ -24,8 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.activity_notification_words_edit)
-    EditText mEditText;
 
     @BindView(R.id.checkBox_arts)
     CheckBox mCheckBox_arts;

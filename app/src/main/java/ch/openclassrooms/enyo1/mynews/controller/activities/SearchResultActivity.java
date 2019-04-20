@@ -13,14 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +23,6 @@ import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
 import ch.openclassrooms.enyo1.mynews.models.articleSearch.Doc;
-import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.Filters;
 import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
@@ -79,26 +72,7 @@ public class SearchResultActivity extends AppCompatActivity {
         executeHttpRequestWithRetrofit();
     }
 
-    /**
-     * Helper method to convert a json string to a Map<String,String> Object.
-     * //@param jsonString,
-     *        The Json string to convert.
-     * @return Map<String,String> , the result of the conversion.
-     * @throws JSONException, an exception when the mapping fail.
-     *//*
-    private Map<String, String>jsonToMap(String jsonString)throws JSONException {
-        HashMap<String, String> map = new HashMap<>();
-        JSONObject jObject = new JSONObject(jsonString);
-        Iterator<?> keys = jObject.keys();
 
-        while( keys.hasNext() ){
-            String key = (String)keys.next();
-            String value = jObject.getString(key);
-            map.put(key, value);
-
-        }
-        return map;
-    }*/
 
     private void configureToolbar(){
         //Set the toolbar
@@ -140,7 +114,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
     // Retrofit request.
     protected void executeHttpRequestWithRetrofit() {
-       // String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
         String key=getString(R.string.api_key);
 
         this.mDisposable= NYTimesStream.streamFetchArticlesSearch(key,mFilterMap)
@@ -202,7 +175,6 @@ public class SearchResultActivity extends AppCompatActivity {
         toast.show();
     }
 
-
     // -------------------
     // UPDATE UI
     // -------------------
@@ -239,7 +211,6 @@ public class SearchResultActivity extends AppCompatActivity {
             }
 
             // -- Affected section label ( section > subSection )
-            //String section = docs.getNewsDesk();
              String section= docs.getSectionName();
 
             if (!docs.getNewsDesk().equals("")) section = section + " > " + docs.getNewsDesk();
