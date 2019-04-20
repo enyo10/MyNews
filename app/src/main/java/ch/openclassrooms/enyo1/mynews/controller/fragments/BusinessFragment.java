@@ -26,7 +26,7 @@ import io.reactivex.observers.DisposableObserver;
  * A simple {@link Fragment} subclass.
  */
 public class BusinessFragment extends BaseFragment {
-
+    private static final String TAG = BusinessFragment.class.getSimpleName();
 
 
     @Override
@@ -41,7 +41,7 @@ public class BusinessFragment extends BaseFragment {
     @Override
     protected int getFragmentLayout() {
         return R.layout.fragment_base_layout;
-        //return 0;
+
     }
 
     @Override
@@ -57,7 +57,6 @@ public class BusinessFragment extends BaseFragment {
 
         TopStories businessArticles =(TopStories) data;
         ArrayList<NYTimesArticle>articles =new ArrayList<>();
-
 
         if(businessArticles.getResults().size()!=0) {
 
@@ -78,12 +77,8 @@ public class BusinessFragment extends BaseFragment {
 
                 articles.add(article);
             }
-
-            Log.i("TAG", "Converting success");
+            Log.i(TAG, "Converting success");
         }
-
-
-
         return articles;
     }
 
@@ -95,16 +90,20 @@ public class BusinessFragment extends BaseFragment {
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories business) {
+                        Log.i(TAG,"Downloading Top story article");
                         updateUI(convertToArticlesList(business));
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.e(TAG,"OOOps, aie aie "+Log.getStackTraceString(e));
 
                     }
 
                     @Override
                     public void onComplete() {
+                        Log.i(TAG,"Downloaded");
 
                     }
                 });

@@ -31,7 +31,7 @@ import icepick.State;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
-    private static final String TAG = BaseFragment.class.getSimpleName();
+    public static final String TAG = BaseFragment.class.getSimpleName();
 
 
     @State

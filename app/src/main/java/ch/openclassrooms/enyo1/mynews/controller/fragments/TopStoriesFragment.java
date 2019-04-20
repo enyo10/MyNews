@@ -58,8 +58,6 @@ public class TopStoriesFragment extends BaseFragment {
     }
 
 
-
-
     @Override
     protected ArrayList<NYTimesArticle> convertToArticlesList(Object data) {
 
@@ -106,7 +104,7 @@ public class TopStoriesFragment extends BaseFragment {
                         Log.i(TAG," Top stories Download...");
                         ArrayList<NYTimesArticle>articles=convertToArticlesList(topStories);
                         updateUI(articles);
-                        Log.i("TAG","Number of top stories "+  topStories.getNumResults());
+                        Log.i(TAG,"Number of top stories "+  topStories.getNumResults());
                     }
 
                     @Override

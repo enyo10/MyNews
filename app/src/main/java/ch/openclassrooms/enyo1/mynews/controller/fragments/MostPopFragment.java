@@ -69,20 +69,9 @@ public class MostPopFragment extends BaseFragment {
                 if (result.getMedia().size() != 0) {
                     article.setImageURL(result.getMedia().get(0).getMediaMetadata().get(0).getUrl());
                 }
-
                 // -- Affected section label ( section > subSection )
                 article.setSection(result.getSection());
-
-               /* if(result.getSubsection()!=null)
-                    article.setSection(result.getSection()+" > "+result.getSubsection());
-                else
-                    article.setSection(result.getSection());*/
-
                 article.setTitle(result.getTitle());
-
-                /*if (result.getMedia().size() != 0 && result.getMedia().get(0).getMediaMetadata().size()!=0)
-                    article.setImageURL(result.getMedia().get(0).getMediaMetadata().get(0).getUrl());*/
-
                 list.add(article);
             }
 
@@ -120,8 +109,6 @@ public class MostPopFragment extends BaseFragment {
 
                     }
                 });
-
-
 
     }
 
