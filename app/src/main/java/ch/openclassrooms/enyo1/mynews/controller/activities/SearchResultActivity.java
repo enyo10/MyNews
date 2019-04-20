@@ -31,7 +31,7 @@ import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
-import static ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment.BUNDLE_ARTICLE_URL;
+import static ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment.BUNDLE_CONTENT_URL;
 
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -158,11 +158,11 @@ public class SearchResultActivity extends AppCompatActivity {
                 });
     }
 
-    // Launch the ArticleContentActivity
+    // Launch the ContentActivity
     // Param : 1 _ Url to display
     protected void callArticleContentActivity(String url){
-        Intent myIntent = new Intent(this, ArticleContentActivity.class);
-        myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
+        Intent myIntent = new Intent(this, ContentActivity.class);
+        myIntent.putExtra(BUNDLE_CONTENT_URL,url);
         this.startActivity(myIntent);
     }
 

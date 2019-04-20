@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
-import ch.openclassrooms.enyo1.mynews.controller.activities.ArticleContentActivity;
+import ch.openclassrooms.enyo1.mynews.controller.activities.ContentActivity;
 import ch.openclassrooms.enyo1.mynews.utils.ItemClickSupport;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.view.NYTimesArticleAdapter;
@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
     Disposable mDisposable;
     List<NYTimesArticle>mNYTimesArticles;
     NYTimesArticleAdapter mAdapter;
-    public static final String BUNDLE_ARTICLE_URL = "BUNDLE_ARTICLE_URL";
+    public static final String BUNDLE_CONTENT_URL = "BUNDLE_CONTENT_URL";
 
     // FOR DESIGN
     // SwipeRefreshLayout and RecyclerView declaration.
@@ -125,14 +125,14 @@ public abstract class BaseFragment extends Fragment {
 
 
     /**
-     * This method launch the ArticleContentActivity that is a web view and show the content
+     * This method launch the ContentActivity that is a web view and show the content
      * of an article.
      * @param url,
      *       the url of the article content.
      */
     protected void callArticleContentActivity(String url){
-        Intent myIntent = new Intent(getActivity(), ArticleContentActivity.class);
-        myIntent.putExtra(BUNDLE_ARTICLE_URL,url);
+        Intent myIntent = new Intent(getActivity(), ContentActivity.class);
+        myIntent.putExtra(BUNDLE_CONTENT_URL,url);
         this.startActivity(myIntent);
     }
 

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.openclassrooms.enyo1.mynews.R;
+import ch.openclassrooms.enyo1.mynews.controller.fragments.BaseFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.BusinessFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.MostPopFragment;
 import ch.openclassrooms.enyo1.mynews.controller.fragments.TopStoriesFragment;
@@ -101,10 +102,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
 
             case R.id.activity_main_menu_toolbar_overflow_about:
-                callSearchActivity();
+                callContentActivityWithAbout();
                 return true;
 
             case R.id.activity_main_menu_toolbar_overflow_help:
+                callContentActivityWithHelp();
                 return true;
             default:return super.onOptionsItemSelected(item);
         }
@@ -210,6 +212,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void callNotificationActivity(){
         Intent notificationActivity = new Intent(MainActivity.this, NotificationsActivity.class);
         startActivity(notificationActivity);
+    }
+
+    protected void callContentActivityWithAbout(){
+        Intent intent = new Intent(MainActivity.this, ContentActivity.class);
+        intent.putExtra(BaseFragment.BUNDLE_CONTENT_URL,"https://openclassrooms.com/fr/projects/166/assignment");
+        startActivity(intent);
+
+    }
+
+    protected void callContentActivityWithHelp(){
+        Intent intent = new Intent(MainActivity.this, ContentActivity.class);
+        intent.putExtra(BaseFragment.BUNDLE_CONTENT_URL,"https://github.com/enyo10/MyNews");
+        startActivity(intent);
+
     }
 
     /**

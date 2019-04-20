@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,13 +17,14 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ch.openclassrooms.enyo1.mynews.R;
 import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
@@ -61,7 +63,7 @@ public class SearchActivity extends BaseActivity {
         manageDateFields();
         configureToolBar();
 
-        retrieveData();
+        retrieveDataAndUpdateCheckboxes();
     }
 
     @Override
@@ -88,8 +90,6 @@ public class SearchActivity extends BaseActivity {
     public int getActivityLayout() {
         return R.layout.activity_search;
     }
-
-
 
     // -------------------
     // MANAGE DATE FIELDS
@@ -228,7 +228,7 @@ public class SearchActivity extends BaseActivity {
     }
 
 
-    private void retrieveData(){
+    private void retrieveDataAndUpdateCheckboxes(){
 
         Map<String,String> map=new HashMap<>();
 
@@ -252,31 +252,23 @@ public class SearchActivity extends BaseActivity {
 
         mFilters.setSelectedValues(map);
 
-        if(mFilters.getSelectedValues().containsKey("Arts")){
-            mCheckBox_arts.setChecked(true);
-        }
-
-        if(mFilters.getSelectedValues().containsKey("Business"))
-            mCheckBox_business.setChecked(true);
-
-
-        if(mFilters.getSelectedValues().containsKey("Entrepreneurs"))
-            mCheckBox_entrepreneurs.setChecked(true);
-
-
-        if(mFilters.getSelectedValues().containsKey("Politics"))
-            mCheckBox_politics.setChecked(true);
-
-
-        if(mFilters.getSelectedValues().containsKey("Sports"))
-            mCheckBox_sports.setChecked(true);
-
-
-        if(mFilters.getSelectedValues().containsKey("Travel"))
-            mCheckBox_travel.setChecked(true);
+        updateCheckBoxes();
 
         Log.i(TAG," selected value "+mFilters.getSelectedValues());
         Log.i(TAG," editTEXt "+mSearchText);
+    }
+
+    /**
+     * This helper method to update the checkboxes.
+     */
+    public void updateCheckBoxes(){
+
+        for(View v: mViewMap.values()){
+            if(mFilters.getSelectedValues().containsKey(v.getTag().toString()))
+                ( (CheckBox)  v).setChecked(true);
+        }
+
+
     }
 
 

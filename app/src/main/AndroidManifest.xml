@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controller.activities.BaseActivity"></activity>
-        <activity android:name=".controller.activities.SearchCategoriesActivity" />
         <activity
             android:name=".controller.activities.SearchResultActivity"
             android:parentActivityName=".controller.activities.SearchActivity" />
@@ -20,7 +19,7 @@
             android:name=".controller.activities.NotificationsActivity"
             android:parentActivityName=".controller.activities.MainActivity" />
         <activity
-            android:name=".controller.activities.ArticleContentActivity"
+            android:name=".controller.activities.ContentActivity"
             android:parentActivityName=".controller.activities.MainActivity" />
         <activity
             android:name=".controller.activities.SearchActivity"
