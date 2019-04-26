@@ -75,7 +75,7 @@ public class TopStoriesFragment extends BaseFragment {
                 list.add(article);
             }
 
-            Log.i("TAG", "Converting success");
+            Log.i(TAG, "Converting success");
         }
 
         return list;
