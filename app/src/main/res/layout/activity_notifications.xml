@@ -53,7 +53,6 @@
         android:background="@android:color/background_dark" />
 
 
-
     <Switch
         android:id="@+id/activity_notifications_switch"
         android:layout_width="match_parent"

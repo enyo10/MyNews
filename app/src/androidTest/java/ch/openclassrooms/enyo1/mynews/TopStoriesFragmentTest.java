@@ -38,7 +38,6 @@ public class TopStoriesFragmentTest {
         assertThat("The section of the Stream was read correctly", topStoriesFetched.getSection().equals("sports"));
         // - Verify if Results Exist
         assertThat("Results exist in the Stream request", topStoriesFetched.getNumResults()!=0);
-        // - Verify if we have 20 article.
-        assertThat(" Article size is 20.",topStoriesFetched.getNumResults() == 20);
+
     }
 }
