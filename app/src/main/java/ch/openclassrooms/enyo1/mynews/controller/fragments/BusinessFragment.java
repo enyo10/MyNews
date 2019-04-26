@@ -1,23 +1,13 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.List;
-
 import ch.openclassrooms.enyo1.mynews.R;
-import ch.openclassrooms.enyo1.mynews.models.articleSearch.ArticleSearch;
-import ch.openclassrooms.enyo1.mynews.models.articleSearch.Doc;
 import ch.openclassrooms.enyo1.mynews.models.topStories.Result;
 import ch.openclassrooms.enyo1.mynews.models.topStories.TopStories;
-import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesStream;
 import io.reactivex.observers.DisposableObserver;
@@ -84,9 +74,8 @@ public class BusinessFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        String api_key= getResources().getString(R.string.api_key);
 
-        this.mDisposable=NYTimesStream.streamFetchTopStories(api_key,"business")
+        this.mDisposable=NYTimesStream.streamFetchTopStories(API_KEY,"business")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories business) {

@@ -15,10 +15,11 @@
             <CheckBox
                 android:id="@+id/checkBox_arts"
                 android:layout_width="185dp"
-                android:layout_height="wrap_content"
+                android:layout_height="51dp"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Arts"
-                android:text="Arts" />
+                android:text="Arts"
+                android:textSize="18sp" />
 
 
             <CheckBox
@@ -27,7 +28,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Politics"
-                android:text="Politics" />
+                android:text="Politics"
+                android:textSize="18sp" />
 
 
         </TableRow>
@@ -40,7 +42,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Business"
-                android:text="Business" />
+                android:text="Business"
+                android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/checkBox_sports"
@@ -48,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Sports"
-                android:text="Sports" />
+                android:text="Sports"
+                android:textSize="18sp" />
 
         </TableRow>
 
@@ -61,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Entrepreneurs"
-                android:text="Entrepreneurs" />
+                android:text="Entrepreneurs"
+                android:textSize="18sp" />
 
             <CheckBox
                 android:id="@+id/checkBox_travel"
@@ -69,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:onClick="onCheckBoxClicked"
                 android:tag="Travel"
-                android:text="Travel" />
+                android:text="Travel"
+                android:textSize="18sp" />
         </TableRow>
 
     </TableLayout>

@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,6 +42,7 @@ public abstract class BaseFragment extends Fragment {
     List<NYTimesArticle>mNYTimesArticles;
     NYTimesArticleAdapter mAdapter;
     public static final String BUNDLE_CONTENT_URL = "BUNDLE_CONTENT_URL";
+    protected static  String API_KEY;
 
     // FOR DESIGN
     // SwipeRefreshLayout and RecyclerView declaration.
@@ -60,6 +63,8 @@ public abstract class BaseFragment extends Fragment {
         // Get layout identifier from abstract method
         View view = inflater.inflate(getFragmentLayout(), container, false);
         ButterKnife.bind(this,view);
+
+        API_KEY = getResources().getString(R.string.api_key);
 
         configureDesign(view);
         configureSwipeRefreshLayout();
@@ -144,6 +149,7 @@ public abstract class BaseFragment extends Fragment {
      *
      */
     protected void updateUI(ArrayList<NYTimesArticle> articles){
+        Collections.sort(articles,Collections.<NYTimesArticle>reverseOrder());
         this.mSwipeRefreshLayout.setRefreshing(false);
         this.mNYTimesArticles.clear();
         this.mNYTimesArticles.addAll(articles);

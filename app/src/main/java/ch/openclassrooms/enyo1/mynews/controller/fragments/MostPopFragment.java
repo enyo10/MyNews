@@ -79,9 +79,8 @@ public class MostPopFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        String api_key= getResources().getString(R.string.api_key);
 
-        this.mDisposable =NYTimesStream.streamFetchMostPopArticles(api_key)
+        this.mDisposable =NYTimesStream.streamFetchMostPopArticles(API_KEY)
                 .subscribeWith(new DisposableObserver<MostPopularArticle>() {
                     @Override
                     public void onNext(MostPopularArticle mostPopularArticle) {

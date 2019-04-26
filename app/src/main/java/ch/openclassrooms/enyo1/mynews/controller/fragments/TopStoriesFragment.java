@@ -84,9 +84,8 @@ public class TopStoriesFragment extends BaseFragment {
 
     @Override
     protected void executeHttpRequestWithRetrofit() {
-        String api_key= getResources().getString(R.string.api_key);
 
-        this.mDisposable = NYTimesStream.streamFetchTopStories(api_key,"home")
+        this.mDisposable = NYTimesStream.streamFetchTopStories(API_KEY,"home")
                 .subscribeWith(new DisposableObserver<TopStories>() {
                     @Override
                     public void onNext(TopStories topStories) {

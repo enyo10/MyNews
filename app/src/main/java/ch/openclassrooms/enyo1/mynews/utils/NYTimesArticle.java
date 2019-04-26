@@ -6,12 +6,11 @@ package ch.openclassrooms.enyo1.mynews.utils;
 public class NYTimesArticle implements Comparable<NYTimesArticle> {
 
 
-    String mDate;               // It's created date of the news
-    String mSection;            // It's the "section > subSection" label
-    String mTitle;              // It's Title of the news
-    String mArticlesURL;            // It's the Url of the news page
-    String mImageURL;           // It's the Url where the image is
-    boolean mEverRead = false;  // Indicator of ever read article ( not read by default )
+   private String mDate;               // It's created date of the news
+   private String mSection;            // It's the "section > subSection" label
+   private String mTitle;              // It's Title of the news
+   private String mArticlesURL;            // It's the Url of the news page
+   private String mImageURL;           // It's the Url where the image is
 
     // Default Constructor
     public NYTimesArticle() {}
@@ -65,17 +64,8 @@ public class NYTimesArticle implements Comparable<NYTimesArticle> {
     }
 
 
-
-    public boolean isEverRead() {
-        return mEverRead;
-    }
-
-    public void setEverRead(boolean everRead) {
-        mEverRead = everRead;
-    }
-
     @Override
-    public int compareTo(NYTimesArticle o) {
-        return this.mDate.compareTo(o.mDate);
+    public int compareTo(NYTimesArticle nyTimesArticle) {
+        return this.mDate.compareTo(nyTimesArticle.mDate);
     }
 }
