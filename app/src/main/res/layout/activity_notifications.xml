@@ -64,11 +64,4 @@
         android:text="@string/enable_notifications_once_per_day"
         android:textSize="16sp" />
 
-
-
-
-
-
-
-
 </LinearLayout>
