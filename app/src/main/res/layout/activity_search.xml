@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="Search query term"
+            android:hint="@string/search_query_term"
             android:maxLines="1"
             android:textSize="16sp" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:text="Begin Date"
+            android:text="@string/begin_date"
             android:textSize="18sp" />
 
 
@@ -51,7 +51,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="End Date"
+            android:text="@string/end_date"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -74,7 +74,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:maxLines="1"
-            android:hint="pick begin date"/>
+            android:hint="@string/pick_begin_date"/>
 
         <EditText
             android:id="@+id/activity_search_end_date"
@@ -86,7 +86,7 @@
             android:textSize="16sp"
             android:layout_marginEnd="15dp"
             android:maxLines="1"
-            android:hint="pick end date"/>
+            android:hint="@string/pick_end_date"/>
 
     </LinearLayout>
 
@@ -118,7 +118,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="10dp"
             android:background="@color/colorPrimaryDark"
-            android:text="SEARCH"
+            android:text="@string/search"
             android:textColor="@android:color/background_light"
             android:onClick="sendRequest">
 

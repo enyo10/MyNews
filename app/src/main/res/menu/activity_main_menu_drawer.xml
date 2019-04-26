@@ -7,22 +7,26 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/activity_main_drawer_top_stories"
-            android:title="@string/top_stories"
-            />
+            android:icon="@drawable/baseline_thumb_up_black_36"
+            android:title="@string/top_stories" />
         <item
             android:id="@+id/activity_main_drawer_most_popular"
-            android:title="@string/most_popular"/>
+            android:icon="@drawable/baseline_supervisor_account_black_36"
+            android:title="@string/most_popular" />
         <item
             android:id="@+id/activity_main_drawer_business"
+            android:icon="@drawable/baseline_business_center_black_36"
             android:title="@string/business"/>
     </group>
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/activity_main_drawer_search"
+            android:icon="@drawable/baseline_search_black_36"
             android:title="@string/search" />
         <item
             android:id="@+id/activity_main_drawer_notifications"
+            android:icon="@drawable/baseline_notification_important_black_36"
             android:title="@string/notifications" />
     </group>
 
