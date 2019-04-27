@@ -42,9 +42,9 @@ public class Filters implements Serializable {
         return mKeyWords;
     }
 
-    public void setKeyWords(String keyWords) {
+   /* public void setKeyWords(String keyWords) {
         mKeyWords = keyWords;
-    }
+    }*/
 
     public String getBeginDate() {
         return mBeginDate;
@@ -63,9 +63,9 @@ public class Filters implements Serializable {
     }
 
 
-    public void setFilters(Map<String, String> filters) {
+   /* public void setFilters(Map<String, String> filters) {
         mFilters = filters;
-    }
+    }*/
 
     /**
      * Add a value to the map. The value of key, is the same as value.
