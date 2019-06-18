@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -69,7 +69,6 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
     protected void executeHttpRequestWithRetrofit() {
         String key="UqsVUuAGooyAyaJPZrwM45HG454PT72r";
         Log.i(TAG," Filter map " +mFilters.getFilters());
-
         Disposable disposable= NYTimesStream.streamFetchArticlesSearch(key,mFilters.getFilters())
                 .subscribeWith(new DisposableObserver<ArticleSearch>() {
                     @Override
@@ -133,6 +132,7 @@ public class NotificationAlarmReceiver extends BroadcastReceiver {
           return simpleDateFormat.format(new Date());
 
       }
+
 
 
     public void setArticleNumber(int articleNumber) {

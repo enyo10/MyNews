@@ -1,7 +1,7 @@
 package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import java.util.ArrayList;

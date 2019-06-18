@@ -1,15 +1,11 @@
 package ch.openclassrooms.enyo1.mynews.view;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ch.openclassrooms.enyo1.mynews.controller.fragments.BusinessFragment;
-import ch.openclassrooms.enyo1.mynews.controller.fragments.MostPopFragment;
-import ch.openclassrooms.enyo1.mynews.controller.fragments.TopStoriesFragment;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
@@ -29,34 +25,12 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     // Returns the fragment to display for that page
     @Override
     public Fragment getItem(int position) {
-        /*switch (position) {
-            case 0: // Fragment # 0 - This will show MostPopFragment
-                 return new TopStoriesFragment().newInstance();
-            case 1: // Fragment # 1 - This will show FirstFragment different title
-                return new MostPopFragment().newInstance();
-            case 2: // Fragment # 2 - This will show SecondFragment
-                return (new BusinessFragment ()).newInstance();
-            default:
-                return null;
-        }*/
-
         return mFragmentList.get(position);
     }
 
     // Returns the page title for the top indicator
     @Override
     public CharSequence getPageTitle(int position) {
-
-       /* switch (position){
-            case 0:
-                return "TOP STORIES";
-            case 1:
-                return "MOST POPULAR";
-            case 2:
-                return "BUSINESS";
-            default:
-                return null;
-        }*/
 
        return mFragmentTitleList.get(position);
 

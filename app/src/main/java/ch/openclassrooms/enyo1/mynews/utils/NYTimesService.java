@@ -22,14 +22,9 @@ public interface NYTimesService {
     Observable<TopStories> getTopStories(@Path("section") String section ,
                                          @Query("api-key") String apiKey);
 
-   // @GET("svc/mostpopular/v2/emailed/7.json")
+
    @GET("svc/mostpopular/v2/mostshared/all-sections/30.json")
     Observable<MostPopularArticle>getMostPopArticle(@Query("api-key")String apiKey);
-
-
-    @GET("svc/search/v2/articlesearch.json")
-    Observable<ArticleSearch>getBusinessArticles(@Query("f")String keyword,@Query("api-key")String apiKey);
-
 
 
     // Article Search API

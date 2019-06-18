@@ -1,8 +1,8 @@
 package ch.openclassrooms.enyo1.mynews.view;
 
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,7 +17,7 @@ import ch.openclassrooms.enyo1.mynews.utils.DateFormatter;
 import ch.openclassrooms.enyo1.mynews.utils.NYTimesArticle;
 
 public class NYTimesArticleViewHolder extends RecyclerView.ViewHolder{
-    private static final String TAG=NYTimesArticleViewHolder.class.getSimpleName();
+    private static final String TAG = NYTimesArticleViewHolder.class.getSimpleName();
 
     @BindView(R.id.fragment_item_title)
     TextView mTitle_textView;

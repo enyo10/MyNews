@@ -7,22 +7,22 @@
         android:id="@+id/menu_activity_main_toolbar_search"
         android:icon="@drawable/baseline_search_white_36"
         app:showAsAction="ifRoom"
-        android:title="Search">
+        android:title="@string/search">
     </item>
 
     <item
         android:id="@+id/activity_main_menu_toolbar_overflow_notifications"
         app:showAsAction="never"
-        android:title="Notifications">
+        android:title="@string/notifications">
     </item>
     <item
         android:id="@+id/activity_main_menu_toolbar_overflow_help"
         app:showAsAction="never"
-        android:title="Help">
+        android:title="@string/help">
     </item>
     <item
         android:id="@+id/activity_main_menu_toolbar_overflow_about"
         app:showAsAction="never"
-        android:title="About">
+        android:title="@string/about">
     </item>
 </menu>

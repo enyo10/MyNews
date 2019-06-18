@@ -41,32 +41,15 @@ public class NYTimesStream {
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(15,TimeUnit.SECONDS);
 
-
     }
 
-    /**
-     * This method to retrieve a stream of business articles.
-     * @param keyword,
-     *
-     * @param apiKey
-     * @return
-     */
-    public static Observable<ArticleSearch>streamFetchBusinessArticles(String keyword, String apiKey){
-
-        NYTimesService businessArticleService=NYTimesService.retrofit.create(NYTimesService.class);
-       return businessArticleService.getBusinessArticles(keyword,apiKey)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .timeout(15,TimeUnit.SECONDS);
-
-    }
 
     /**
      * This method to retrieve a stream of articles according to the given filters.
      * @param apiKey,
      *        api-key
      * @param filter,
-     *        a map of the filters.
+     *        a map of the filters(parameters).
      * @return Observable<ArticleSearch>,
      *        a stream of the articles.
      */

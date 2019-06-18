@@ -2,12 +2,12 @@ package ch.openclassrooms.enyo1.mynews.controller.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +31,7 @@ import icepick.State;
 import io.reactivex.disposables.Disposable;
 
 public abstract class BaseFragment extends Fragment {
+
     public static final String TAG = BusinessFragment.class.getSimpleName();
 
 
@@ -155,7 +155,6 @@ public abstract class BaseFragment extends Fragment {
         this.mNYTimesArticles.addAll(articles);
         this.mAdapter.notifyDataSetChanged();
     }
-
 
 
     @Override
